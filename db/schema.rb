@@ -44,15 +44,15 @@ ActiveRecord::Schema.define(version: 2022_06_07_131314) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "address_1"
-    t.string "address_2"
-    t.string "city"
-    t.string "state"
-    t.string "country"
-    t.string "zipcode"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer   "user_id"
+    t.string    "address_1"
+    t.string    "address_2"
+    t.string    "city"
+    t.string    "state"
+    t.string    "country"
+    t.string    "zipcode"
+    t.datetime  "created_at", precision: 6, null: false
+    t.datetime  "updated_at", precision: 6, null: false
   end
 
   create_table "banner_images", force: :cascade do |t|

@@ -1,19 +1,13 @@
 <div class="jumbotron">
-  <h1 class="display-5 text-center">Category - <%= @category.name%> </h1>
+  <h1 class="display-5 text-center">Category - <%= @category.name.capitalize%> </h1>
     <section class="py-5" style="background-color:#fcead7;">
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <% @products.each do |product| %>
             <div class="col mb-5">
               <div class="card h-100">
-                <!-- Sale badge
-                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                -->
                 <!-- Product image-->
-                <%# @images.each do |product_image| %>
-                  <%#= product_imag.image %>
-                  <img class="card-img-top" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp" alt="..." />
-                <%#end%>
+                <%= image_tag product.product_images.first.image if product.product_images.first %>
                 <!-- Product details-->
                 <div class="card-body p-4">
                   <div class="text-center">
@@ -32,7 +26,7 @@
                 </div>
               </div>
             </div>
-          <% end %> 
+          <% end %>                
         </div>
       </div>
     </section>  
