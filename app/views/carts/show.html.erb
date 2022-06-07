@@ -1,0 +1,86 @@
+<section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <p>
+                <h2 class="fw-normal mb-0 text-black">Your Cart <%=current_user.name.split(" ").first %></h2>
+            </p> 
+        </div>
+        <% @cart.line_items.each do |item|%>
+            <div class="card rounded-3 mb-4">
+            <div class="card-body p-4">
+                <div class="row d-flex justify-content-between align-items-center">
+                <div class="col-md-2 col-lg-2 col-xl-2">
+                    <img
+                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                    class="img-fluid rounded-3" alt="Cotton T-shirt">
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                    <p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
+                    <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                    <h5 class="mb-0"><%= item.quantity %>Pc</h5>
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                    <h5 class="mb-0">$<%= item.total%></h5>
+                </div>
+                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                    <%= link_to '', item, method: :delete, data: {confirm: 'You sure?'}, class:"fa fa-trash fa-lg text-danger" %>
+                </div>
+                </div>
+            </div>
+            </div>
+        <% end %>            
+
+        <!-- for coupan
+        <div class="card mb-4">
+          <div class="card-body p-4 d-flex flex-row">
+            <div class="form-outline flex-fill">
+              <input type="text" id="form1" class="form-control form-control-lg" />
+              <label class="form-label" for="form1">Discound code</label>
+            </div>
+            <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>
+          </div>
+        </div>
+        -->
+        <div class="card">
+          <div class="card-body text-center">
+                    <p id = "total_before_coupon" > <h4 class="mb-0">Total $<span id="cart-total"><%= @cart.total%></span></h4> </p>
+                  
+                    <%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
+                        <%= f.hidden_field :total, :value => @cart.total %>
+                        <%= f.text_field :code, :placeholder => "Enter your coupon" %>
+                        <%= f.submit "Submit Coupon Code"  %>
+                    <% end %> <br>
+                
+              <p> 
+                <a href="<%= root_path %>" class="btn btn-primary btn-block btn-lg" style="background-color:#477bb3 ">Continue Shopping</a>
+                  <div id= "cart-total-form" >
+                  <%= form_with  url: new_order_path, method: :get do |f| %>
+                      <%= f.hidden_field :total, :value => 0 %>
+                        <%= f.submit "Submit Coupon Code"  %>
+                 <% end %>
+                </div>
+            </p>            
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-body text-center">
+            <%= button_to 'Empty your Cart', @cart, method: :delete, data: {confirm: 'Are You Sure'}, class:"btn btn-danger btn-block btn-lg" %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous">
+</script>

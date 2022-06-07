@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eshop</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <!-- stripe link -->
+    <script src="https://js.stripe.com/v2/"></script>
+    
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+   
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light p-0">
+      <!-- Container wrapper -->
+      <div class="container-fluid" style="background-color:#b8b0ab;">
+        <div class="d-flex align-items-center"> 
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand mt-2 mt-lg-0" href="<%= root_path %>">
+            <%= image_tag 'logo.png', height:"35"%>            
+            </a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <%if user_signed_in? %>
+                  <%if current_user.admin %>
+                    <li class="nav-item"><a class="nav-link" href="<%= rails_admin_path %>">Admin</a></li>
+                  <%end%>
+                    <li class="nav-item"><a class="nav-link" href="<%= edit_user_registration_path %>">Edit Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<%= destroy_user_session_path %>" data-method="delete">Sign Out</a></li>
+                <% else %>  
+                    <li class="nav-item"><a class="nav-link" href="<%= new_user_session_path %>">Sign In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<%= new_user_registration_path %>">Sign Up</a></li>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#b8b0ab;">
+              Categories 
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+              <%= link_to "All Products", root_path,class:"dropdown-item" %>
+              <% Category.all.each do |category| %>
+                <%= link_to category.name, category_path(category),class:"dropdown-item" %>
+              <% end %>
+            </div>
+          </div>
+          <!-- cart-Icon -->
+          <a class="text-reset me-3 nav-link" href="<%= cart_path(@cart)%>">Show Cart <i class="fa fa-shopping-cart"></i>
+          </a>     
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    <!-- notice -->
+      <%if notice %>
+        <div class="col col-md-12 text-center">
+          <p id="notice"><%= notice %></p>
+        </div>
+      <%elsif alert%>
+        <div class="col col-md-12 text-center">
+          <p id="alert"><%= alert %></p>
+        </div>
+      <% end %> 
+    <!-- notice -->
+
+    <%= yield %>
+    <footer class="py-5 bg-dark">
+      <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Akash's Website 2022</p></div>
+    </footer>
+  </body>
+</html>

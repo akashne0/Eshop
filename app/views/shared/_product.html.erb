@@ -1,0 +1,25 @@
+ <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-6  p-5 mt-5">
+        <div class="card" style="opacity:1; border:none">
+          <div class="card-body text-center" style="background-color:#fae4bb;">
+            <div class="my-5">
+              <div class="site-heading">
+                  <% (@product.product_images).each do |image| %>
+                    <%=image_tag image.image ,style:"width:300px;height:300;display:center;"  %>
+                  <% end %>
+              </div>
+              <div class="site-heading">
+                <h1><%= @product.name.capitalize %></h1>
+                <span class="subheading"><%= @product.short_description.capitalize %></span>
+                <p><h5 class="card-title"><span class="mb-0">Price: $</span><%= @product.price %></h5></p>
+              </div>
+              <br>
+              <div class="site-heading">
+                <a href="<%= products_path %>" class="btn btn-primary" style="background-color:#477bb3 ">Back to Product list</a>
+                <a href="<%= line_items_path(product_id: @product.id) %>" class="btn btn-warning" data-method="post" style="background-color:#f7b807">Add to Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
