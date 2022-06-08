@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_07_131314) do
+ActiveRecord::Schema.define(version: 2022_06_08_060201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,15 +44,15 @@ ActiveRecord::Schema.define(version: 2022_06_07_131314) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.integer   "user_id"
-    t.string    "address_1"
-    t.string    "address_2"
-    t.string    "city"
-    t.string    "state"
-    t.string    "country"
-    t.string    "zipcode"
-    t.datetime  "created_at", precision: 6, null: false
-    t.datetime  "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.string "address_1"
+    t.string "address_2"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.string "zipcode"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "banner_images", force: :cascade do |t|
@@ -114,11 +114,11 @@ ActiveRecord::Schema.define(version: 2022_06_07_131314) do
 
   create_table "orders", force: :cascade do |t|
     t.string "name"
-    t.text "address"
     t.string "email"
     t.string "paytype"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "address_id"
   end
 
   create_table "product_attributes_assocs", force: :cascade do |t|
