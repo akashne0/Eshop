@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
 
-  get 'address/index'
-  get 'address/new'
-  get 'address/show'
   resources :orders
   resources :line_items
   resources :carts 
   resources :coupons 
+  resources :addresses
+
   post 'check_coupon_code', to: 'coupons#check_coupon_code'
-
-
   
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
     
