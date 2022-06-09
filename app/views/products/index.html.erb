@@ -1,6 +1,8 @@
 <div class="container-fluid" >
+	<!-- banner-->
 	<%= render 'shared/banner'%>
-	<!-- Section-->
+	<!-- banner-->
+	<!-- sidebar-->
 	<div class="row  p-0">
 		<div class="col-2 sticky-top" id="sticky-sidebar">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -9,18 +11,12 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto flex-column vertical-nav">
-						<li class="nav-item">
-							<a class="nav-link" href="<%= root_path%>">Home</a>
+						<li class="text-center">Categories</li>
+						<% Category.all.each do |category| %>
+						 <li class="nav-item">
+							<%= link_to category.name.capitalize, category_path(category), class:"nav-link" %>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="<%= new_user_session_path%>">Log In</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="<%= new_user_registration_path %>">Sign up</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Setting</a>
-						</li>
+						<% end %><br>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<%= current_user.name%>
@@ -34,27 +30,34 @@
 					</ul>
 				</div>
 			</nav>
-
-				<div class="col mb-5 mt-5">
-					<div class="card h-100">
-						<!-- Product image-->
-						<%= image_tag "large_pic.jpg" %>
-						
-					</div>
+			<!--sidebar images-->
+			<div class="col mb-1 mt-1">
+				<div class="card m-3 p-0">
+					<%= image_tag "shipping.jpg" , height:"300" %>
 				</div>
-	 			
-		</div>
+				<div class="card m-3 p-0">
+					<%= image_tag "similar3.jpg" , height:"250" %>
+				</div>
+				<div class="card m-3 p-0">
+					<%= image_tag "1.jpg" , height:"300" %>
+				</div>
+				<div class="card m-3 p-0">
+					<%= image_tag "similar3.jpg" , height:"250" %>
+				</div>
+			</div>		
+		</div><!-- sidebar-->
+		<!-- middle section-->
 		<div class="col-10 p-0" id="main">
-			<section class="py-1" style="background-color:#fcead7;">
+			<section class="py-1" style="background-color:#f5f3f0;">
 				<div class="container px-4 px-lg-5 mt-5">
 					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 						<% @products.each do |product| %>
 							<div class="col mb-5">
-								<div class="card h-100">
+								<div class="card">
 									<!-- Product image-->
-									<%= image_tag product.product_images.first.image if product.product_images.first %>
+									<%= image_tag(product.product_images.first.image,class:"img-responsive",height:"200") if product.product_images.first %>
 									<!-- Product details-->
-									<div class="card-body p-4">
+									<div class="card-body p-2">
 										<div class="text-center">
 											<!-- Product name-->
 											<h5 class="fw-bolder"><%= product.name %></h5>
@@ -63,10 +66,10 @@
 										</div>
 									</div>
 									<!-- Product actions-->
-									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
 										<div class="text-center"><a href="<%= product_path(product) %>" class="btn btn-primary" style="background-color:#477bb3 ">View Product</a></div>
 									</div>
-									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
 										<div class="text-center"><a href="<%= line_items_path(product_id: product) %>" class="btn btn-warning" data-method="post" style="background-color:#f7b807">Add to Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></div>
 									</div>
 								</div>
@@ -74,7 +77,7 @@
 						<% end %> 
 					</div>
 				</div>
-			</section>      
+			</section><!--middle Section-->      
 		</div>
 	</div>
 </div>
