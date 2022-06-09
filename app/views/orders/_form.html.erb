@@ -22,6 +22,9 @@
                             <div class="row">
                               <%= f.hidden_field :total, :value => @total %>                                     
                             </div>
+                            <div class="row">
+                              <%= f.hidden_field :address_id, :value => @address_id %>                                     
+                            </div>
                                     
                             <div class="row">                                     
                               <%= f.submit "Stripe",class: "btn btn-primary btn-md btn-block waves-effect text-center col-md-12 m-1"  %><br>     

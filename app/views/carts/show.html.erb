@@ -39,7 +39,10 @@
         <div class="card">
           <div class="card-body text-center ">
             <div id="new-address-form">
-              <%= select_tag :address, options_for_select(current_user.addresses.all.pluck( :address_1,:address_2)), prompt: "Please Select Address", class:"form-select form-select-lg mb-3" %> 
+            <!--address selection-->
+              <%= select_tag :address, options_for_select(current_user.addresses.all.pluck( :address_1,:address_2, :id)), 
+              prompt: "Please Select Address", class:"form-select form-select-lg mb-3", id:"address-select"%> 
+            <!--add address -->
                 <%= link_to "Add new address", new_address_path, class:"btn btn-primary btn-lg ms-3",style:"background-color:#477bb3", remote: true %>
             </div>
           </div>  
@@ -62,7 +65,7 @@
                   <div id= "cart-total-form" >                 
                     <%= form_with  url: new_order_path, method: :get do |f| %>
                         <%= f.hidden_field :total, :value => 0 %>
-                        <%= f.hidden_field :address, :value => address.id %>
+                        <%= f.hidden_field :address_id, :value => 0 %>
                           <%= f.submit "Checkout"  %>
                   <% end %>
                  
@@ -82,8 +85,11 @@
   </div>
 </section>
 
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous">
+
+<!--for adding address id into checkout form-->
+<script>
+  $("#address-select").change(function() {
+  var id = $( "#address-select option:selected").val();
+  $("#address_id").val(id);
+  });
 </script>
