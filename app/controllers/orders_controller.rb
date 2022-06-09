@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   def create
     total = params["order"][:total]
     address_id = params["order"][:address_id]
-    params["order"].delete(:total)
+    # params["order"].delete(:total)
 
     @order = Order.new(order_params)
     # @order.add_line_items_from_cart(@cart)
@@ -41,7 +41,9 @@ class OrdersController < ApplicationController
     elsif params[:commit] == 'Paypal'
       redirect_to new_paypal_path
     else params[:commit] == 'Cash On Delivery'
-      
+      #to add paytype to order
+      @order.pay_type = params[:commit]
+
       respond_to do |format|
 
         if @order.save
@@ -89,6 +91,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:address_id,:total)
+      params.require(:order).permit(:address_id, :total, :pay_type)
     end
 end
