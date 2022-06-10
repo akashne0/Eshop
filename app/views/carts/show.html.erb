@@ -1,115 +1,127 @@
-<section class="h-100" style="background-color: #eee;">
+<section style="background-color: #eee;">
   <div class="container h-100 py-3">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-10">
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <p>
-              <% if @cart.line_items.present? %>
-                <h2 class="fw-normal mb-0 text-black">Your Cart <%=current_user.name.split(" ").first %></h2>
-              <% else %>
-                <h2 class="fw-normal mb-0 text-black">Your Cart is Empty <%=current_user.name.split(" ").first %></h2>
-              <% end %>
-            </p> 
-        </div>
-			<div class="card rounded-3 mb-0">
-            <div class="card-body p-4">
-                <div class="row d-flex justify-content-between align-items-center">
-					<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-						<h5 class="mb-0">Item</h5>
-					</div>
-					<div class="col-md-3 col-lg-3 col-xl-3">
-						<h5 class="mb-0">Desc</h5>
-					</div>
-					<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-						<h5 class="mb-0">Quantity</h5>
-					</div>
-					<div class="col-md-3 col-lg-2 col-xl-2 ml-4 pl-5 text-end">
-						<h5 class="mb-0">Total</h5>
-					</div>
-					<div class="col-md-1 col-lg-1 col-xl-2 text-end">
-						<h5 class="mb-0">Remove</h5>
-					</div>
-                </div>
-            </div>
-            </div>
-        <% @cart.line_items.each do |item|%>
-            <div class="card rounded-3 mb-3">
-            <div class="card-body p-4">
-                <div class="row d-flex justify-content-between align-items-center">
-					<div class="col-md-2 col-lg-2 col-xl-2">
-						<%= image_tag(item.product.product_images.first.image, width:"100",class:"img-fluid rounded-3 img-responsive") if item.product.product_images.first  %>
-					</div>
-                <div class="col-md-3 col-lg-3 col-xl-3">
-                    <p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
-                    <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
-                </div>
-                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                    <h5 class="mb-0"><%= item.quantity %>Pc</h5>
-                </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                    <h5 class="mb-0">$<%= item.total%></h5>
-                </div>
-                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                    <%= link_to '', item, method: :delete, data: {confirm: 'You sure?'}, class:"fa fa-trash fa-lg text-danger" %>
-                </div>
-                </div>
-            </div>
-            </div>
-        <% end %>            
-
-        <!-- for address -->
-        <div class="card mt-3">
-          <div class="card-body text-center ">
-            <div id="new-address-form">
-            <!--address selection-->
-				<div class="select-class">
-					<%= select_tag :address, options_for_select(current_user.addresses.all.pluck( :address_1,:address_2, :id)), 
-					prompt: "Please Select Address", class:"form-select form-select-lg mb-3", id:"address-select"%> 
-				</div>
-			<!--add address -->
-                <%= link_to "Add new address", new_address_path, class:"btn btn-primary btn-lg ms-3",style:"background-color:#477bb3", remote: true %>
-            </div>
-          </div>  
-        </div>
-        <!--for address -->
-        <div class="card">
-          <div class="card-body text-center">
-              <p id = "total_before_coupon" > <h3 class="mb-0">Total $<span id="cart-total"><%= @cart.total%></span></h3> </p>
-              <%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
-                <%= f.hidden_field :total, :value => @cart.total %>
-                <div class="d-flex justify-content-center mx-5 px-1">
-                  <div class="px-2">
-                    <%= f.text_field :code, :placeholder => "Enter your coupon",class:"form-control form-control-lg text-center" %>
-                  </div>
-                    <%= f.submit "Apply", class:"btn btn-outline-warning btn-lg ms-3" %>
-                </div>  
-              <% end %> <br> 
-                <div id= "cart-total-form" class="" >                 
-                    <%= form_with  url: new_order_path, method: :get do |f| %>
-                        <%= f.hidden_field :total, :value => 0 %>
-                        <%= f.hidden_field :address_id, :value => 0 %>
-                          <%= f.submit "Checkout", class:"btn btn-success btn-block btn-lg", style:"width:50%" %>
-                    <% end %>                 
-                </div>           
-          </div>
-		  <!--continue shopping-->
-            <a href="<%= root_path %>" class="btn btn-warning btn-lg">Continue Shopping</a>
-        </div>
-        <% if @cart.line_items.present? %>
-          <div class="card p-0">
-            <div class="card-body text-center">
-                <%= button_to 'Empty your Cart', @cart, method: :delete, data: {confirm: 'Are You Sure'}, class:"btn btn-danger btn-block btn-lg" %>           
-            </div>
-          </div>
-        <% end%>
-      </div>
-    </div>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+          <p>
+            <% if @cart.line_items.present? %>
+              <h2 class="fw-normal mb-0 text-black">Your Cart <%=current_user.name.split(" ").first %></h2>
+            <% else %>
+              <h2 class="fw-normal mb-0 text-black">Your Cart is Empty <%=current_user.name.split(" ").first %></h2>
+            <% end %>
+          </p> 
+      </div>           
   </div>
 </section>
 
+<section id="cart_items">
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description">Description</td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td class="total">Remove</td>
+						</tr>
+					</thead>
+					<tbody>
+          <% @cart.line_items.each do |item|%>
+						<tr>
+							<td class="cart_price">
+								<%= image_tag(item.product.product_images.first.image, width:"100",class:"img-responsive") if item.product.product_images.first  %>
+							</td>
+							<td class="cart_description py-5">
+								<p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
+                <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
+							</td>
+							<td class="cart_price py-5">
+								<p>$<%= item.product.price %></p>
+							</td>
 
-<!--for adding address id into checkout form-->
+              <td class="cart_price px-5 py-5">
+								<p> <%= item.quantity %></p>
+							</td>
+						<%#	<td class="cart_quantity">
+								 <div class="cart_quantity_button">
+									<a class="cart_quantity_up" href=""> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href=""><%= item.quantity %> <%#</a>
+								</div> 
+                <h5 class="cart_price"></h5>
+							</td>%>
+							<td class="cart_total py-5">
+								<p class="cart_total_price">$<%= item.total%></p>
+							</td>
+							<td class="cart_total px-5 py-5">
+                <%= link_to '', item, method: :delete, data: {confirm: 'You sure?'}, class:"fa fa-trash fa-lg text-danger" %>
+							</td>
+						</tr>
+          <% end %>
+					</tbody>
+				</table>
+			</div>
+	</section> <!--/#cart_items-->
+
+	<section id="do_action">
+		<div class="container">
+			<div class="heading">
+				<h3>What would you like to do next?</h3>
+				<p>Choose if you have a discount code or coupons you want to use.</p>
+			</div>
+			<div class="row">
+				<div class="col-sm-7">
+					<div class="total_area">
+						<ul>
+							<li>Cart Sub Total <span>$<%= @cart.total%></span></li>
+							<li><%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
+								<%= f.hidden_field :total, :value => @cart.total %>
+								<div class="d-flex justify-content-center">
+									<%= f.text_field :code, :placeholder => "Enter your coupon",class:"form-control form-control-lg text-center" %>
+									<%= f.submit "Apply", class:"btn btn-outline-warning btn-lg ms-3" %>
+								</div>  
+								<% end %>
+							</li>
+							<li>Shipping Cost <span>Free</span></li>
+							<li>Total <span id="cart-total">$<%= @cart.total%></li>
+						</ul>
+							<%# <a class="btn btn-default update" href="">Update</a> %>
+               <div id= "cart-total-form" class="" >                 
+                    <%= form_with  url: new_order_path, method: :get do |f| %>
+                        <%= f.hidden_field :total, :value => 0 %>
+                        <%= f.hidden_field :address_id, :value => 0 %>
+                          <%= f.submit "Checkout", class:"btn btn-default check_out" %>
+                    <% end %>                 
+                </div>          
+							<%# <a class="btn btn-default check_out" href="">Check Out</a> %>
+					</div>
+				</div>
+        <div class="col-sm-5">
+					<div class="total_area">
+            <div id="new-address-form">
+                  <!--address selection-->
+              <div class="select-class">
+                <%= select_tag :address, options_for_select(current_user.addresses.all.pluck( :address_1,:address_2, :id)), 
+                prompt: "Please Select Address", class:"form-select form-select-lg mb-3", id:"address-select"%> 
+              </div>
+			            <!--add address -->
+                <%= link_to "Add new address", new_address_path, class:"btn btn-default update", remote: true %>
+            </div>
+						<%# <ul>
+							<li>Cart Sub Total <span>$59</span></li>
+							<li>Eco Tax <span>$2</span></li>
+							<li>Shipping Cost <span>Free</span></li>
+							<li>Total <span>$61</span></li>
+						</ul>
+							<a class="btn btn-default update" href="">Update</a>
+							<a class="btn btn-default check_out" href="">Check Out</a> %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!--/#do_action-->
+
+  <!--for adding address id into checkout form-->
 <script>
   $("#address-select").change(function() {
   var id = $( "#address-select option:selected").val();

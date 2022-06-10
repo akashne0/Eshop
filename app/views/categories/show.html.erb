@@ -1,33 +1,32 @@
-<div class="jumbotron">
+<section>
+	<div class="container">
   <h1 class="display-5 text-center">Category - <%= @category.name.capitalize%> </h1>
-    <section class="py-5" style="background-color:#fcead7;">
-      <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-          <% @products.each do |product| %>
-            <div class="col mb-5">
-              <div class="card h-100">
-                <!-- Product image-->
-                <%= image_tag product.product_images.first.image if product.product_images.first %>
-                <!-- Product details-->
-                <div class="card-body p-4">
-                  <div class="text-center">
-                    <!-- Product name-->
-                    <h5 class="fw-bolder"><%= product.name %></h5>
-                    <!-- Product price-->
-                    <span class=" text-center">INR <%= product.price %></span>
-                  </div>
-                </div>
-                <!-- Product actions-->
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div class="text-center"><a href="<%= product_path(product) %>" class="btn btn-primary" style="background-color:#477bb3 ">View Product</a></div>
-                </div>
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div class="text-center"><a href="<%= line_items_path(product_id: product) %>" class="btn btn-warning" data-method="post" style="background-color:#f7b807">Add to Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></div>
-                </div>
-              </div>
-            </div>
-          <% end %>                
-        </div>
-      </div>
-    </section>  
-</div>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="left-sidebar">
+					<!--left side bar -->
+					<%= render 'shared/sidebar' %>
+					<!--left side bar -->
+					<div class="shipping text-center mb-5"><!--shipping-->
+						<%= image_tag 'shipping.jpg', class:"img-responsive" %>
+					</div><!--/shipping-->
+					
+				</div>
+			</div>
+			
+			<div class="col-sm-9 padding-right">
+				<div class="features_items"><!--features_items-->
+
+					<%= render 'shared/features' %>
+					<%# 						
+					<ul class="pagination">
+						<li class="active"><a href="">1</a></li>
+						<li><a href="">2</a></li>
+						<li><a href="">3</a></li>
+						<li><a href="">&raquo;</a></li>
+					</ul> %>
+				</div><!--features_items-->
+			</div>
+		</div>
+	</div>
+</section>
