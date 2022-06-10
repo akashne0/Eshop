@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   
   resources :charges, only: [:new, :create]
   resources :paypals, only: [:new, :create]
-  # get 'products/cart', to: 'products#cart' , as: "products_cart"
+
+  get 'home/index', to: 'home#index' 
 
 end
  
