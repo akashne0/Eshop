@@ -1,32 +1,35 @@
-
 <section id="slider"><!--slider-->
     <div class="container"> 
         <div class="row">
-                <div class="col-sm-12 text-center pt-5 m-5">  
-                    <div class="carousel-inner ">
-                        <div class="carousel-item active ">
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="1500">
-                                <div class="carousel-inner">
+            <div class="col-sm-12 text-center pt-5 m-5">  
+                <div class="carousel-inner ">
+                    <div class="carousel-item active ">
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="1500">
+                            <div class="carousel-inner">
                                 <% @banners.each do |banner| %>
-                                <div class="carousel-item <%= "active" if banner == @banners.first %>">
-                                    <%= image_tag url_for(banner.image)%>
-                                    <h2>Free Delivery Above &#x20B9;1000</h2>   
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                </div>
+                                    <div class="carousel-item <%= "active" if banner == @banners.first %>">
+                                        <div class="col-sm-6 ">
+                                            <h1><span>E</span>-SHOP</h1>
+                                            <h2>Free Delivery above $500</h2>
+                                            <p>Avail the offer now, it is availble for limited period of time , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                            <button type="button" class="btn btn-default get">Get it now</button>
+                                        </div>
+                                        <div class="col-sm-6 ">
+                                            <%= image_tag url_for(banner.image),height:"250"%>
+                                        </div>
+                                    </div>
                                 <% end %>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon bg-black" aria-hidden="true" ></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
                             </div>
+                            <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </section><!--/slider-->

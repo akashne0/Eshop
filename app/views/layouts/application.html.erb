@@ -19,91 +19,23 @@
 
   <body>
     <div class="container" >
-      <div class="container sticky-top m-0 p-0">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white p-0">
-          <!-- Container wrapper -->
-          <div class="container-fluid">
-            <div class="d-flex align-items-center"> 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand mt-2 mt-lg-0" href="<%= root_path %>">
-                  <%= image_tag 'logo.png', height:"60"%>            
-                </a>
-              </div>
-            </div>
-            <!-- Right elements -->
-            <div class="d-flex align-items-center">
-              <ul class="nav navbar-nav me-auto">
-              <%if user_signed_in? %>
-                <%if current_user.admin %>
-                  <li class="nav-item"><a class="nav-link" href="<%= rails_admin_path %>"><i class="fa fa-user"></i></i> Admin Account</a></li>
-                <%end%>
-                <li class="nav-item"><a class="nav-link" href="<%= edit_user_registration_path %>"><i class="fa fa-user"></i> Edit Account</a></li>
-                <li class="nav-item"><a class="nav-link" href="<%= destroy_user_session_path %>" data-method="delete" ><i class="fa fa-sign-out"></i> Signout</a></li>
-              <% else %>
-                <li class="nav-item"><a class="nav-link" href="<%= new_user_session_path %>"><i class="fa fa-lock"></i> Sign In</a></li>
-                <li class="nav-item"><a class="nav-link" href="<%= new_user_registration_path %>"><i class="fa fa-sign-in"></i> Sign Up</a></li>
-              <% end %>  
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <!-- Navbar -->
-        <%if user_signed_in? %>
-          <!-- Jumbotron -->
-          <div class="navbar navbar-expand-lg navbar-light bg-white p-0">
-            <div class="container-fluid">
-              <div class="d-flex align-items-center"> 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                      <li class="nav-item"><a class="nav-link active" href="<%= root_path %>">HOME</a></li>
-                      <li class="nav-item"><a class="nav-link" href="<%= edit_user_registration_path %>">Edit Profile</a></li>
-                      <li class="nav-item"><a class="nav-link" href="<%= destroy_user_session_path %>" data-method="delete">Sign Out</a></li>                   
-                      <li class="nav-item"><a class="nav-link" href="<%= new_user_session_path %>">Sign In</a></li>
-                      <li class="nav-item"><a class="nav-link" href="<%= new_user_registration_path %>">Sign Up</a></li>
-                  </ul>
-                </div>
-              </div>
-                <!-- Right elements -->
-              <div class="d-flex align-items-center">
-                <ul class="nav navbar-nav me-auto">
-                  <%# <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-star"></i> Wishlist</a></li> %>
-                  <%# <li class="nav-item"><a class="nav-link" href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li> %>
-                  <li class="nav-item" style="height:20"><a class="nav-link" href="<%= cart_path(@cart)%>" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                </ul>
-                <div class="dropdown nav-item ">
-                  <button class="btn dropdown-toggle navlink" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Categories 
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                    <%= link_to "All Products", root_path,class:"dropdown-item" %>
-                    <% Category.all.each do |category| %>
-                    <%= link_to category.name.capitalize, category_path(category),class:"dropdown-item" %>
-                    <% end %>
-                    <%#= select_tag :category, options_for_select(Category.all.pluck(:name, :id)) %>
-                  </div>                
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-        <!-- Jumbotron -->    
+      <!--header-->
+      <%= render 'layouts/header'%>
         <!-- notice -->
           <%if notice %>
             <div class="col col-md-12 text-center">
-              <p id="notice"  class="alert alert-info"><%= notice %></p>
+                <p class="alert alert-info" role="alert"><%= notice %></p> 
             </div>
           <%elsif alert%>
             <div class="col col-md-12 text-center">
-              <p id="alert" class="alert alert-warning"><%= alert %></p>
+              <p class="alert alert-warning " role="alert"><%= alert %></p>
             </div>
           <% end %> 
         <!-- notice -->
       <%= yield %>
-      <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Akash's Website 2022</p></div>
-      </footer>
+      <!--footer-->
+      <%= render 'layouts/footer'%>
     </div>
   </body>
 </html>
+

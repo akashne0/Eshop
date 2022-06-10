@@ -78,7 +78,7 @@
               <p id = "total_before_coupon" > <h3 class="mb-0">Total $<span id="cart-total"><%= @cart.total%></span></h3> </p>
               <%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
                 <%= f.hidden_field :total, :value => @cart.total %>
-                <div class="d-flex  justify-content-center mx-5 px-1">
+                <div class="d-flex justify-content-center mx-5 px-1">
                   <div class="px-2">
                     <%= f.text_field :code, :placeholder => "Enter your coupon",class:"form-control form-control-lg text-center" %>
                   </div>
