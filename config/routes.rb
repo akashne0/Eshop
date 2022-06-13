@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   post 'check_coupon_code', to: 'coupons#check_coupon_code'
   
-  devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
+  devise_for :users, controllers: {omniauth_callbacks: 'omniauth'} 
+      resources :wishlists
+  
     
   
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

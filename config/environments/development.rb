@@ -14,6 +14,57 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { :host => 'localhost', :port => 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '530bf4a0b8ed77',
+    :password => 'a98cc1cb5f6c1f',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: "smtp.gmail.com",
+  #   port: 587,
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
+  #   user_name: Rails.application.credentials.dig(:google_smtp, :email),
+  #   password: Rails.application.credentials.dig(:google_smtp, :password), 
+  #   domain: "smtp.gmail.com",
+  #   openssl_verify_mode: "none",
+  # }
+
+
+#   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+#   config.action_mailer.perform_caching = false
+#   config.action_mailer.delivery_method = :smtp
+#   config.action_mailer.smtp_settings = {
+#   address:              'smtp.gmail.com',
+#   port:                  587,
+#   domain:               'gmail.com',
+#   user_name:             Rails.application.credentials.dig(:google_smtp, :email),
+#   password:              Rails.application.credentials.dig(:google_smtp, :password),
+#   authentication:       'plain',
+#   enable_starttls_auto: true
+#  }
+
+
+  # config.action_mailer.smtp_settings = {
+  #   address:                'mail.neosoftmail.com', 
+  #   port:                   465,
+  #   domain:                'localhost:3000',
+  #   user_name:              Rails.application.credentials.dig(:neosoft_smtp, :email),
+  #   password:               Rails.application.credentials.dig(:neosoft_smtp, :password),
+  #   authentication:       'login',
+  #   :ssl                  => true,
+  #   :openssl_verify_mode  => 'none'
+  # }
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
@@ -34,9 +85,9 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.perform_caching = false
+  # config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -74,5 +125,5 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

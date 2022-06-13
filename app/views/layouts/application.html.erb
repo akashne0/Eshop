@@ -22,15 +22,17 @@
       <!--header-->
       <%= render 'layouts/header'%>
         <!-- notice -->
-          <%if notice %>
-            <div class="col col-md-12 text-center">
-                <p class="alert alert-info" role="alert"><%= notice %></p> 
-            </div>
-          <%elsif alert%>
-            <div class="col col-md-12 text-center">
-              <p class="alert alert-warning " role="alert"><%= alert %></p>
-            </div>
-          <% end %> 
+              
+          <div class="col col-md-12 text-center" id="notice" >
+            <%if notice %>
+              <p class="alert alert-info " role="alert" ><span ><%= notice %></span></p>
+            <% end %>
+          </div>
+          <div class="col col-md-12 text-center" id="alert"  >
+            <%if alert%>
+                <p class="alert alert-warning " role="alert" ><%= alert %></p>
+            <% end %> 
+          </div>          
         <!-- notice -->
       <%= yield %>
       <!--footer-->

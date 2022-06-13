@@ -1,9 +1,11 @@
 class User < ApplicationRecord
   has_many :addresses
+  has_one :wishlist
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
+         :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: [:google_oauth2, :twitter, :facebook]
 
     # for adding stripe customer id to user
