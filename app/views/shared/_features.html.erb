@@ -1,0 +1,30 @@
+<h2 class="title text-center">All Items</h2>
+<% @products.each do |product| %>
+    <div class="col-sm-4">
+        <div class="product-image-wrapper">
+            <div class="single-products">
+                <div class="productinfo text-center">
+                    <%= image_tag(product.product_images.first.image,height:"200") if product.product_images.first %>
+                    <h2>$<%= product.price %></h2>
+                    <p><%= product.short_description %></p>
+                    <a href="<%= line_items_path(product_id: product) %>" data-method="post" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                </div>
+                <div class="product-overlay">
+                    <div class="overlay-content">
+                        <h2>$<%= product.price %></h2>
+                        <p><%= product.short_description %></p>
+                        <a href="<%= line_items_path(product_id: product) %>" data-method="post" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="choose">
+                <ul class="nav nav-pills">
+                    <li><a href="<%= wishlists_path(product_id: product) %>" data-method="post" data-remote="true" ><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                    <%# <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist </a></li>
+                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li> %>
+                    <li><a href="<%= product_path(product) %>"><i class="fa fa-plus-square"></i>Show the product</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<% end %>

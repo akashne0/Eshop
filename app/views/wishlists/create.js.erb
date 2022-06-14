@@ -1,0 +1,5 @@
+$("#notice").html("<p class='alert alert-info' role='alert' ><span ><%= @message %></span><button type='button' class='close' data-dismiss='alert'>&times;</button></p>");
+<% if current_user.wishlist == nil%>
+$("#wishlist-show").html('<li><a href="<%= wishlist_path(current_user.try(:wishlist).try(:id))%>"><i class="fa fa-star"></i> Wishlist</a></li>');
+<% end %>
+
