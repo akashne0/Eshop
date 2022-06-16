@@ -11,7 +11,12 @@ class WishlistsController < ApplicationController
   def show
     @wishlist = current_user.wishlist
     product_ids = @wishlist.product_id
+    if product_ids.empty?
+     flash[:notice] = "Your wishlist is empty"
+     @products = Product.where(id: product_ids)
+    end
     @products = Product.where(id: product_ids)
+
   end
 
   # GET /wishlists/new
@@ -60,7 +65,16 @@ class WishlistsController < ApplicationController
   end
 
   
+  def remove_from_wishlist
+    # byebug
+    @wishlist = current_user.wishlist
+    @wishlist.product_id.delete(params[:product_id].to_i)
+    @wishlist.save
 
+    respond_to do |format|
+      format.html { redirect_to wishlist_path(@wishlist.id), notice: "Product removed from wishlist!" }
+    end
+  end
   
 
   

@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :addresses
+  has_many :orders
   has_one :wishlist
   
   # Include default devise modules. Others available are:

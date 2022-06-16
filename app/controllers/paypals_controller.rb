@@ -1,4 +1,5 @@
 class PaypalsController < ApplicationController
+  require 'paypal-sdk-rest'
   include CurrentCart  
   before_action :set_cart, only: [:new, :create]
   skip_before_action :verify_authenticity_token
@@ -8,6 +9,7 @@ class PaypalsController < ApplicationController
   end
 
   def create
+
       @order = Order.new
       @order.add_line_items_from_cart(@cart)
       request = PayPalCheckoutSdk::Orders::OrdersCreateRequest::new

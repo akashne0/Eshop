@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:new, :create]
+  before_action :set_cart, only: [:new, :create, :index]
   before_action :set_order, only: %i[ show edit update destroy ]
 
   # GET /orders or /orders.json
@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/1 or /orders/1.json
   def show
+  
   end
 
   # GET /orders/new
@@ -17,10 +18,17 @@ class OrdersController < ApplicationController
     if @cart.line_items.empty?
       redirect_to root_url, notice: "Your Cart Is Empty"
       return
-    end
-    @order = Order.new
-    @total = params[:total]
-    @address_id = params[:address_id]
+    elsif params[:address_id].to_i == 0
+      redirect_to cart_path(@cart), notice: "Please Add Address To Continue"
+      return
+    elsif params[:total].to_i == 0
+      redirect_to cart_path(@cart), notice: "Total Not Found"
+      return
+    else
+      @order = Order.new
+      @total = params[:total]
+      @address_id = params[:address_id]
+    end    
   end
 
   # GET /orders/1/edit
@@ -37,7 +45,7 @@ class OrdersController < ApplicationController
     # @order.add_line_items_from_cart(@cart)
     
     if params[:commit] == 'Stripe'
-      redirect_to new_charge_path(:total => total) 
+      redirect_to new_charge_path(:total => total, :pay_type => 'Stripe', :address_id => address_id) 
     elsif params[:commit] == 'Paypal'
       redirect_to new_paypal_path
     else params[:commit] == 'Cash On Delivery'
@@ -45,7 +53,6 @@ class OrdersController < ApplicationController
       @order.pay_type = params[:commit]
 
       respond_to do |format|
-
         if @order.save
           Cart.destroy(session[:cart_id])
           session[:cart_id] = nil

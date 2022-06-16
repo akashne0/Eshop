@@ -1,4 +1,4 @@
-<section style="background-color: #eee;">
+<section style="background-color: #eee;" class="container" >
   <div class="container h-100 py-3">
       <div class="d-flex justify-content-between align-items-center mb-2">
           <p>
@@ -12,7 +12,7 @@
   </div>
 </section>
 
-<section id="cart_items">
+<section id="cart_items" class="container">
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
@@ -26,38 +26,38 @@
 						</tr>
 					</thead>
 					<tbody>
-          <% @cart.line_items.each do |item|%>  
-						<tr>
-							<td class="cart_price">
-								<%= image_tag(item.product.product_images.first.image, width:"100",class:"img-responsive") if item.product.product_images.first  %>
-							</td>
-							<td class="cart_description py-5">
-								<p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
-                <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
-							</td>
-							<td class="cart_price py-5">
-								<p>$<%= item.product.price %></p>
-							</td>
+          				<% @cart.line_items.each do |item|%>  
+							<tr>
+								<td class="cart_price">
+									<%= image_tag(item.product.product_images.first.image, width:"100",class:"img-responsive") if item.product.product_images.first  %>
+								</td>
+								<td class="cart_description py-5">
+									<p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
+									<p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
+								</td>
+								<td class="cart_price py-5">
+									<p>$<%= item.product.price %></p>
+								</td>
 
-              <td class="cart_price px-5 py-5">
-								<p> <%= item.quantity %></p>
-							</td>
-						<%#	<td class="cart_quantity">
-								 <div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""><%= item.quantity %> <%#</a>
-								</div> 
-                <h5 class="cart_price"></h5>
-							</td>%>
-							<td class="cart_total py-5">
-								<p class="cart_total_price">$<%= item.total%></p>
-							</td>
-							<td class="cart_total px-5 py-5">
-                <%= link_to '', item, method: :delete, data: {confirm: 'You sure?'}, class:"fa fa-trash fa-lg text-danger" %>
-							</td>
-						</tr>
-          <% end %>
+								<td class="cart_price px-5 py-5">
+									<p> <%= item.quantity %></p>
+								</td>
+								<%#	<td class="cart_quantity">
+										<div class="cart_quantity_button">
+											<a class="cart_quantity_up" href=""> + </a>
+											<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+											<a class="cart_quantity_down" href=""><%= item.quantity %> <%#</a>
+										</div> 
+										<h5 class="cart_price"></h5>
+									</td>%>
+								<td class="cart_total py-5">
+									<p class="cart_total_price">$<%= item.total%></p>
+								</td>
+								<td class="cart_total px-5 py-5">
+									<%= link_to '', item, method: :delete, data: {confirm: 'You sure?'}, class:"fa fa-trash fa-lg text-danger" %>
+								</td>
+							</tr>
+          				<% end %>
 					</tbody>
 				</table>
 			</div>
@@ -73,7 +73,7 @@
 				<div class="col-sm-7">
 					<div class="total_area">
 						<ul>
-							<li>Cart Sub Total <span>$<%= @cart.total%></span></li>
+							<li style="font-size:15px">Cart Sub Total<span>$<%= @cart.total%></span></li>
 							<li><%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
 								<%= f.hidden_field :total, :value => @cart.total %>
 								<div class="d-flex justify-content-center">
@@ -82,15 +82,15 @@
 								</div>  
 								<% end %>
 							</li>
-							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span id="cart-total">$<%= @cart.total%></li>
+							<li style="font-size:15px" >Shipping Cost <span>Free</span></li>
+							<li style="font-size:15px" >Total <span id="cart-total">$<%= @cart.total%></li>
 						</ul>
 							<%# <a class="btn btn-default update" href="">Update</a> %>
                <div id= "cart-total-form" class="" >                 
                     <%= form_with  url: new_order_path, method: :get do |f| %>
                         <%= f.hidden_field :total, :value => 0 %>
                         <%= f.hidden_field :address_id, :value => 0 %>
-                          <%= f.submit "Checkout", class:"btn btn-default check_out" %>
+                          <%= f.submit "Checkout", class:"btn btn-outline-success btn-lg mx-4 ", style:"font-size:18px" %>
                     <% end %>                 
                 </div>          
 							<%# <a class="btn btn-default check_out" href="">Check Out</a> %>
@@ -100,12 +100,13 @@
 					<div class="total_area">
             <div id="new-address-form">
                   <!--address selection-->
-              <div class="select-class">
-                <%= select_tag :address, options_for_select(current_user.addresses.all.pluck( :address_1,:address_2, :id)), 
-                prompt: "Please Select Address", class:"form-select form-select-lg mb-3", id:"address-select"%> 
-              </div>
+			  <div class="select-class mx-3">
+                <%= select_tag :temp_address, options_for_select(get_user_addresses), 
+                prompt: "Please Select Address",  id:"address-select", style:"font-size:13px"%> 
+              </div><br>
+
 			            <!--add address -->
-                <%= link_to "Add new address", new_address_path, class:"btn btn-default update", remote: true %>
+                <%= link_to "Add new address", new_address_path, class:"btn btn-outline-success btn-lg ms-3", style:"font-size:15px", remote: true %>
             </div>
 						<%# <ul>
 							<li>Cart Sub Total <span>$59</span></li>

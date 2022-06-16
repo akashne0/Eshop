@@ -6,6 +6,8 @@
                         <div class="card-block">
                             <%= form_tag charges_path do %>
                             <input type="hidden" id="total" name="total" value="<%=@total%>" >
+                            <input type="hidden" id="address_id" name="address_id" value="<%=@address_id%>" >
+                            <input type="hidden" id="pay_type" name="pay_type" value="<%=@pay_type%>" >
                             <article>
                               <% if flash[:error].present? %>
                               <div id="error_explanation">

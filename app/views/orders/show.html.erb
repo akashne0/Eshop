@@ -6,17 +6,13 @@
 
 <p>
   <strong>Address:</strong>
-  <%= @order.address %>
+  <%= @order.address_1 %>
 </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @order.email %>
-</p>
 
 <p>
   <strong>Paytype:</strong>
-  <%= @order.paytype %>
+  <%= @order.pay_type %>
 </p>
 
 <%= link_to 'Edit', edit_order_path(@order) %> |

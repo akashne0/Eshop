@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
     @recommend_products = Product.last(3)
     @banners = BannerImage.all
     @images = ProductImage.all
-  end
+  end 
 
   def show
     @product = Product.find(params[:id])

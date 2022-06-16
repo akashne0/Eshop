@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_11_115733) do
+ActiveRecord::Schema.define(version: 2022_06_15_131650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,14 @@ ActiveRecord::Schema.define(version: 2022_06_11_115733) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "coupon_useds", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "coupon_id"
+    t.integer "order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "coupons", force: :cascade do |t|
     t.string "code"
     t.float "percent_off"
@@ -118,6 +126,11 @@ ActiveRecord::Schema.define(version: 2022_06_11_115733) do
     t.integer "address_id"
     t.integer "total"
     t.string "pay_type"
+    t.integer "status", default: 0
+    t.bigint "coupon_id"
+    t.bigint "user_id"
+    t.index ["coupon_id"], name: "index_orders_on_coupon_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "product_attributes_assocs", force: :cascade do |t|
@@ -202,6 +215,8 @@ ActiveRecord::Schema.define(version: 2022_06_11_115733) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "products"
+  add_foreign_key "orders", "coupons"
+  add_foreign_key "orders", "users"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_images", "products"

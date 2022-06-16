@@ -23,18 +23,42 @@ class LineItemsController < ApplicationController
 
   # POST /line_items or /line_items.json
   def create
-    product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product.id)
-    # @line_item = LineItem.new(line_item_params)
-    
-    respond_to do |format|
-      if @line_item.save
-        # format.html { redirect_to @line_item.cart}
-        format.html { redirect_to root_url, notice: "Product added to cart successfully."}
-        format.json { render action: 'show', status: :created, location: @line_item }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+    if params.include? :wishlist_id
+      puts "Inside the wishlist condition"
+
+      product = Product.find(params[:product_id])
+      @line_item = @cart.add_product(product.id)
+      puts "before delete of product"
+      current_user.wishlist.product_id.delete(params[:product_id].to_i)
+      puts "After delete of product"
+      current_user.wishlist.save
+      
+      respond_to do |format|
+        if @line_item.save
+
+          # format.html { redirect_to @line_item.cart}
+          format.html { redirect_to wishlist_path(params[:wishlist_id]), notice: "Product added to cart successfully."}
+          format.json { render action: 'show', status: :created, location: @line_item }
+        # else
+        #   format.html { render :new, status: :unprocessable_entity }
+        #   format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        end
+      end
+      
+    else
+      product = Product.find(params[:product_id])
+      @line_item = @cart.add_product(product.id)
+      # @line_item = LineItem.new(line_item_params)
+      
+      respond_to do |format|
+        if @line_item.save
+          # format.html { redirect_to @line_item.cart}
+          format.html { redirect_to root_url, notice: "Product added to cart successfully."}
+          format.json { render action: 'show', status: :created, location: @line_item }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
