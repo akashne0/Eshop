@@ -79,11 +79,7 @@
     <div class="header-bottom"><!--header-bottom-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-9">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon
+               
                 <div class="col-sm-9">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -103,6 +99,7 @@
                                     <li><a href="checkout.html">Checkout</a></li> %>
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="<%= orders_path%>"> My Orders</a></li>
+                                    <li><a href="<%= new_track_order_path %>"> Track Your Order</a></li>
                                     <%if user_signed_in? %>
                                         <li><a href="<%= destroy_user_session_path %>" data-method="delete">Signout</a></li>
                                     <% else %>

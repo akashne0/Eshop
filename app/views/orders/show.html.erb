@@ -1,19 +1,66 @@
+<section class="container" >
+  <div class="container h-100">
+      <div class="text-center" >
+          <p><h1>Order Details</h1></p> 
+      </div>           
+  </div>
+</section>
+<section id="cart_items" class="container">
+    <div class="table-responsive cart_info">
+      <table class="table table-condensed">
+        <thead>
+          <tr class="cart_menu">
+            <td class="image">Item</td>
+            <td class="description">Description</td>
+            <td class="price">Price</td>
+            <td class="quantity">Quantity</td>
+            <td class="total">Total</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.line_items.each do |item|%>  
+            <tr>
+              <td class="cart_price">
+                <%= image_tag(item.product.product_images.first.image, width:"100",class:"img-responsive") if item.product.product_images.first  %>
+              </td>
+              <td class="cart_description py-5">
+                <p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
+                <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
+              </td>
+              <td class="cart_price py-5">
+                <p>$<%= item.product.price %></p>
+              </td>
 
-<p>
-  <strong>Name:</strong>
-  <%= @order.name %>
-</p>
+              <td class="cart_price px-5 py-5">
+                <p> <%= item.quantity %></p>
+              </td>
+            
+              <td class="cart_total py-5">
+                <p class="cart_total_price">$<%= item.total%></p>
+              </td>
+            </tr>
+          <% end %>							
+        </tbody>         
+      </table>
+    </div>
+</section> <!--/#product_items-->
 
-<p>
-  <strong>Address:</strong>
-  <%= @order.address_1 %>
-</p>
 
+	<section id="do_action">
+		<div class="container">
+			<div class="row">
+        <div class="col-sm-7">
+          <div class="heading">       
+            <h3>Your Billing/Shipping address :</h3> 
+            <p><%= "  #{@address.address_2}, #{@address.address_2}," %><br> 
+            <%= " #{@address.state}, #{@address.city},#{@address.zipcode} " %></p>  
+          </div><br>
+          <div class="heading">       
+            <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %></span></h3> 
+             
+          </div>
+        </div>			
+			</div>
+		</div>
+	</section><!--/#do_action-->
 
-<p>
-  <strong>Paytype:</strong>
-  <%= @order.pay_type %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>

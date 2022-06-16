@@ -1,16 +1,16 @@
 class OrdersController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:new, :create, :index]
+  before_action :set_cart, only: [:new, :create, :index, :show]
   before_action :set_order, only: %i[ show edit update destroy ]
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.all 
+    @orders = current_user.orders
   end
 
   # GET /orders/1 or /orders/1.json
   def show
-  
+    @address = Address.find(@order.address_id)  
   end
 
   # GET /orders/new
