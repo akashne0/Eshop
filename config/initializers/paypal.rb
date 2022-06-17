@@ -1,2 +1,2 @@
-client_secret = Rails.application.credentials.dig(:paypal, :paypal_secret_key)
-client_id = Rails.application.credentials.dig(:paypal, :paypal_client_id)
+PayPal::SDK.load("config/paypal.yml", Rails.env)
+PayPal::SDK.logger = Rails.logger

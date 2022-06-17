@@ -7,7 +7,6 @@ class TrackOrdersController < ApplicationController
   end
 
   def show
-
   end
 
   def create

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :contact_us
   root 'products#index'
   get 'home/index', to: 'home#index' 
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth'} 
