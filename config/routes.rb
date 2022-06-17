@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  resources :contact_us
   root 'products#index'
   get 'home/index', to: 'home#index' 
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth'} 
@@ -22,6 +21,8 @@ Rails.application.routes.draw do
   resources :charges, only: [:new, :create]
   resources :paypals, only: [:new, :create]  
   resources :track_orders,only: [:new, :create, :show]  
+  resources :contacts, only: [:index, :create] 
+
 
 end
  

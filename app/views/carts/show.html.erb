@@ -1,16 +1,13 @@
-<section style="background-color: #eee;" class="container" >
-  <div class="container h-100 py-3">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-          <p>
-            <% if @cart.line_items.present? %>
-              <h2 class="fw-normal mb-0 text-black">Your Cart <%=current_user.name.split(" ").first %></h2>
-            <% else %>
-              <h2 class="fw-normal mb-0 text-black">Your Cart is Empty <%=current_user.name.split(" ").first %></h2>
-            <% end %>
-          </p> 
-      </div>           
-  </div>
-</section>
+<div class="container text-center">
+	<p>
+		<% if @cart.line_items.present? %>
+			<h2 class="fw-normal mb-0 text-black">Your Cart <%=current_user.name.split(" ").first %></h2>
+		<% else %>
+			<h2 class="fw-normal mb-0 text-black">Your Cart is Empty <%=current_user.name.split(" ").first %></h2>
+		<% end %>
+	</p>		
+</div>
+
 
 <section id="cart_items" class="container">
 	<div class="table-responsive cart_info">

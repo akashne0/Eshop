@@ -1,0 +1,107 @@
+<div id="contact-page" class="container">
+  <div class="bg">
+    <div class="row">    		
+      <div class="col-sm-12">    			   			
+        <h2 class="title text-center">Contact <strong>Us</strong></h2>      
+        <table>
+          <tbody>                
+            <div class="well">
+                <h2>Queries:</h2></th><br><br>
+                <% @contacts.each do |contact| %>
+                    <div class="jumbotron p-0">        
+                        <div class="container" style="font-size:1.5rem;">
+                            <p class="p-0 m-0" >Name: <%= contact.name %></p>
+                            <p class="p-0 m-0" >Email: <%= contact.email %></p>
+                            <p class="p-0 m-0" >Message: <%= contact.message %></p>
+                            <%if contact.admin_note.present? %>
+                                <p style="color:#bd2f04">Admin note: <%= contact.admin_note %></p>
+                            <%end%>
+                        </div>
+                    </div>
+                <% end %>                         
+            </div>                                        
+          </tbody>
+        </table>			    				    				
+      <%# <div id="gmap" class="contact-map">
+      </div> %>
+    </div>			 		
+  </div>    	
+    <div class="row">  	
+      <div class="col-sm-8">
+        <div class="contact-form">
+          <h2 class="title text-center">Get In Touch</h2>
+          <div class="status alert alert-success" style="display: none"></div>
+            <%= form_with(model: @contact, id:"main-contact-form", class:"contact-form row") do |f| %>
+                <div class="form-group col-md-6">
+                  <%= f.text_field :name,autofocus: true, class: "form-control", placeholder:"Name"  %>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <%= f.text_field :mobile_no, autofocus: true, class: "form-control", placeholder:"Mobile"  %>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder:"Email" %>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <%= f.text_field :message, autofocus: true, class: "form-control", placeholder:"Your Message Here", rows:"8"  %>
+                </div>  
+
+                <div class="form-group col-md-12">
+                  <%= f.submit "Add address",class: "btn btn-primary pull-right", style:"font-size:1.5rem;"  %><br>     
+                </div>
+            <% end %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="contact-info">
+          <h2 class="title text-center">Contact Info</h2>
+          <address>
+            <p>E-Shop Inc.</p>
+          <p> Karve Nagar, Kanjurmarg, Mumbai, 400042</p>
+          <p>Mumbai India</p>
+          <p>Mobile: +91 88 88 88 88 88</p>
+          <p>Email: info@e-shop.com</p>
+          </address>
+          <div class="social-networks">
+            <h2 class="title text-center">Social Networking</h2>
+          <ul>
+            <li>
+              <a href="#"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-google-plus"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-youtube"></i></a>
+            </li>
+          </ul>
+          </div>
+        </div>
+      </div>    			
+    </div>  
+  </div>	
+</div><!--/#contact-page-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

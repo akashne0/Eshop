@@ -21,7 +21,8 @@
     <div class="container" >
       <!--header-->
       <%= render 'layouts/header'%>
-        <!-- notice -->    
+        <!-- notice -->   
+        <div class="container">
           <div class="col col-md-12 text-center" id="notice" >
             <%if notice %>
               <p class="alert alert-info " role="alert" ><span ><%= notice %></span> 
@@ -34,6 +35,8 @@
                 <p class="alert alert-warning " role="alert" ><%= alert %><button type="button" class="close" data-dismiss="alert">&times;</button></p>                
             <% end %> 
           </div>          
+        </div> 
+          
         <!-- notice -->
       <%= yield %>
       <!--footer-->

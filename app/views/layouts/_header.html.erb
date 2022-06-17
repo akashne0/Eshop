@@ -32,29 +32,6 @@
                     <div class="logo pull-left">
                         <a href="<%= root_path %>"><%= image_tag 'logo.png', height:"60"%> </a>
                     </div>
-                    <%# <div class="btn-group pull-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                USA
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canada</a></li>
-                                <li><a href="#">UK</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                DOLLAR
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canadian Dollar</a></li>
-                                <li><a href="#">Pound</a></li>
-                            </ul>						
-                        </div>
-                    # @wishlist.product_id = Product.find(params[:id])# @wishlist.product_id = Product.find(params[:id])</div> %>
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
@@ -79,27 +56,17 @@
     <div class="header-bottom"><!--header-bottom-->
         <div class="container">
             <div class="row">
-               
                 <div class="col-sm-9">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="<%= root_path%>" class="active">Home</a></li>
                             <li class="dropdown"><a>E-Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                     <li><a href="<%= home_index_path %>">Products</a></li>
-                                   <%# <li><a href="product-details.html">Product Details</a></li> 
-                                    <li><a href="checkout.html">Checkout</a></li> %>
+                                    <li><a href="<%= home_index_path %>">Products</a></li>
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="<%= orders_path%>"> My Orders</a></li>
                                     <li><a href="<%= new_track_order_path %>"> Track Your Order</a></li>
+                                    <li><a href="<%= contacts_path %>"> Contact Us</a></li>
                                     <%if user_signed_in? %>
                                         <li><a href="<%= destroy_user_session_path %>" data-method="delete">Signout</a></li>
                                     <% else %>
@@ -118,9 +85,8 @@
                                 </ul>
                             </li>
                             <li><a href="<%= orders_path%>"> My Orders</a></li>
-                            <li>
-                                <a href="<%= cart_path(@cart)%>"><i class="fa fa-shopping-cart"></i> Cart</a>   
-                            </li>
+                             <li><a href="<%= cart_path(@cart)%>"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="<%= contacts_path %>"> Contact Us</a></li>
                             <li>
                                 <div id="wishlist-show">
                                     <% if user_signed_in? && current_user.wishlist %>
@@ -128,24 +94,9 @@
                                     <% end %>
                                 </div>
                             </li>
-                            
-                            
-                            <%# <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="blog.html">Blog List</a></li>
-                                    <li><a href="blog-single.html">Blog Single</a></li>
-                                </ul>
-                            </li> %>
-                            <%# <li><a href="404.html">404</a></li>
-                            <li><a href="contact-us.html">Contact</a></li> %>
                         </ul>
                     </div>
                 </div>
-                <%# <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
-                </div> %>
             </div>
         </div>
     </div><!--/header-bottom-->
