@@ -1,44 +1,37 @@
-<section id="do_action">
-  <div class="row justify-content-center">
-    <div class="col-sm-7">
-        <%= form_with(model: order, class:"md-float-material form-material") do |f| %>
-          <div class="auth-box card">
-              <div class="card-block">
-                  <div class="row">
-                      <div class="col-md-12">
-                          <h3 class="text-center heading" >Please Select Your Payment Option</h3><br><br>
-                            <% if order.errors.any? %>
-                                <ul>
-                                  <% order.errors.each do |error| %>
-                                    <li><%= error.full_message %></li>
-                                  <% end %>
-                                </ul>
-                              </div>
-                            <% end %>
-                        </div>
-                  </div>
-
-                  <div class="row">
-                    <%= f.hidden_field :total, :value => @total %>                                     
-                  </div>
-                  <div class="row">
-                    <%= f.hidden_field :address_id, :value => @address_id %>                                     
-                  </div>
-                          
-                  <div class="row px-5">                                      
-                      <%= f.submit "Stripe",class: "btn btn-primary text-center px-4"  %><br>     
-                  </div>
-                  
-                  <div class="row px-5">                                 
-                        <%= f.submit "Paypal",class: "btn btn-primary text-center px-4"  %><br>
-                  </div>
-
-                  <div class="row px-5 mb-4">                                
-                        <%= f.submit "Cash On Delivery",class: "btn btn-primary text-center px-4"  %><br>  
-                  </div>
+<%= form_with(model: order, class:"md-float-material form-material") do |f| %>
+  <div class="auth-box card">
+      <div class="card-block">
+          <div class="row">
+              <div class="col-md-12">
+                <h3 class="text-center heading" >Please Select Your Payment Option</h3><br>
+                  <% if order.errors.any? %>
+                      <ul>
+                        <% order.errors.each do |error| %>
+                          <li><%= error.full_message %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
               </div>
           </div>
-      <% end %>
-    </div>
+          <div class="row">
+            <%= f.hidden_field :total, :value => @total %>                                     
+          </div>
+          <div class="row">
+            <%= f.hidden_field :address_id, :value => @address_id %>                                     
+          </div>
+                  
+          <div class="row px-5"> 
+              <%= f.submit "Stripe", class:"btn btn-outline-success btn-lg mb-3" %><br>     
+          </div>
+          
+          <div class="row px-5">                                 
+                <%= f.submit "Paypal", class:"btn btn-outline-success btn-lg mb-3 "  %><br>
+          </div>
+
+          <div class="row px-5 mb-4">                                
+                <%= f.submit "Cash On Delivery", class:"btn btn-outline-success btn-lg mb-3"  %><br>  
+          </div>
+      </div>
   </div>
-</section><!--/#do_action-->
+<% end %>
