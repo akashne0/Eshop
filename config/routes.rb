@@ -3,13 +3,9 @@ Rails.application.routes.draw do
   root 'products#index'
   get 'home/index', to: 'home#index' 
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth'} 
-  resources :orders
-  resources :line_items
-  resources :carts 
-  resources :coupons 
+  resources :orders, :line_items, :carts, :coupons, :addresses, :wishlists 
+ 
   post 'check_coupon_code', to: 'coupons#check_coupon_code'
-  resources :addresses
-  resources :wishlists
   delete 'remove_from_wishlist', to: 'wishlists#remove_from_wishlist' 
   
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -22,6 +18,7 @@ Rails.application.routes.draw do
   resources :paypals, only: [:new, :create]  
   resources :track_orders,only: [:new, :create, :show]  
   resources :contacts, only: [:index, :create] 
+  resources :newsletters
 
 
 end

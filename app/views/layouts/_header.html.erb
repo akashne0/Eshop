@@ -67,6 +67,7 @@
                                     <li><a href="<%= orders_path%>"> My Orders</a></li>
                                     <li><a href="<%= new_track_order_path %>"> Track Your Order</a></li>
                                     <li><a href="<%= contacts_path %>"> Contact Us</a></li>
+                                    <li><a href="<%= newsletters_path %>"> Newsletters</a></li>
                                     <%if user_signed_in? %>
                                         <li><a href="<%= destroy_user_session_path %>" data-method="delete">Signout</a></li>
                                     <% else %>
