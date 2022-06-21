@@ -18,8 +18,9 @@ Rails.application.routes.draw do
   resources :paypals, only: [:new, :create]  
   resources :track_orders,only: [:new, :create, :show]  
   resources :contacts, only: [:index, :create] 
-  resources :newsletters
-
+  resources :newsletters, only: [:index, :create, :destroy] 
+  get '/newsletters/subscribe', to: 'newsletters#subscribe'
+  get '/newsletters/unsubscribe', to: 'newsletters#unsubscribe'
 
 end
  

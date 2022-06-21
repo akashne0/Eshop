@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_20_055546) do
+ActiveRecord::Schema.define(version: 2022_06_20_085944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,9 +150,11 @@ ActiveRecord::Schema.define(version: 2022_06_20_055546) do
 
   create_table "newsletters", force: :cascade do |t|
     t.string "email"
-    t.string "categories"
+    t.string "categories", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "confirmed_at"
+    t.string "subscription_type"
   end
 
   create_table "orders", force: :cascade do |t|

@@ -12,6 +12,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
+
   config.consider_all_requests_local = true
 
   config.action_mailer.perform_deliveries = true
@@ -27,33 +28,6 @@ Rails.application.configure do
     :port => '2525',
     :authentication => :cram_md5
   }
-
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   address: "smtp.gmail.com",
-  #   port: 587,
-  #   authentication: "plain",
-  #   enable_starttls_auto: true,
-  #   user_name: Rails.application.credentials.dig(:google_smtp, :email),
-  #   password: Rails.application.credentials.dig(:google_smtp, :password), 
-  #   domain: "smtp.gmail.com",
-  #   openssl_verify_mode: "none",
-  # }
-
-
-#   config.action_mailer.default_url_options = { host: 'localhost:3000' }
-#   config.action_mailer.perform_caching = false
-#   config.action_mailer.delivery_method = :smtp
-#   config.action_mailer.smtp_settings = {
-#   address:              'smtp.gmail.com',
-#   port:                  587,
-#   domain:               'gmail.com',
-#   user_name:             Rails.application.credentials.dig(:google_smtp, :email),
-#   password:              Rails.application.credentials.dig(:google_smtp, :password),
-#   authentication:       'plain',
-#   enable_starttls_auto: true
-#  }
-
 
   # config.action_mailer.smtp_settings = {
   #   address:                'mail.neosoftmail.com', 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>These are some updated products</h1>
+      <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="item active">
+            <% @products.each do |product| %>
+              <div class="col-sm-4">
+                <div class="product-image-wrapper">
+                  <div class="single-products">
+                    <div class="productinfo text-center">
+                      <%= image_tag(product.product_images.first.image,height:"200") if product.product_images.first %>
+                      <h2>$<%= product.price %></h2>
+                      <p><%= product.short_description %></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    
+    <br><br><br><br>
+    <h6>Click on the link for Subscribing <button style="font-size: 0.5rem;"><a href="http://localhost:3000/newsletters/unsubscribe?email=<%=@newsletter.email%>" class="btn btn-primary " style="font-size: 0.5rem;">Unsubscribe</a></button></h6>
+  </body>
+</html>
+
