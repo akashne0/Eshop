@@ -86,7 +86,7 @@
 					</ul>
 					<div id= "cart-total-form" class="" >                 
 						<%= form_with  url: new_order_path, method: :get do |f| %>
-							<%= f.hidden_field :total, :value => 0 %>
+							<%= f.hidden_field :total, :value => @cart.total+@shipping_cost %>
 							<%= f.hidden_field :address_id, :value => 0 %>
 							<%= f.submit "Checkout", class:"btn btn-outline-success btn-lg mx-4 ", style:"font-size:18px" %>
 						<% end %>                 
@@ -115,8 +115,5 @@
   $("#address-select").change(function() {
   var id = $( "#address-select option:selected").val();
   $("#address_id").val(id);
-  if $("#total").val() {
-  	$("#total").val("<%=@cart.total%>");
-  }
   });
 </script>

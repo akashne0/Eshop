@@ -51,10 +51,11 @@ class OrdersController < ApplicationController
     else params[:commit] == 'Cash On Delivery'
       #to add paytype to order
       @order.pay_type = params[:commit]
-      
-     
+      @order.user_id = current_user.id
+
       respond_to do |format|
         if @order.save
+          add_from_cart_to_order_details(@cart, @order)
           Cart.destroy(session[:cart_id])
           session[:cart_id] = nil
 
