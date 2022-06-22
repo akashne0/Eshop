@@ -1,7 +1,6 @@
 class Product < ApplicationRecord
     has_many :product_images
-    has_many :product_categories, dependent: :destroy
-    has_many :categories,  through: :product_categories
+    has_and_belongs_to_many :categories
     has_many :line_items
     has_many :orders, through: :line_items
     has_one :wishlist

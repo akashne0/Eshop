@@ -1,4 +1,4 @@
- <header id="header"><!--header-->
+<header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
             <div class="row">
@@ -24,7 +24,6 @@
             </div>
         </div>
     </div><!--/header_top-->
-
     <div class="header-middle"><!--header-middle-->
         <div class="container">
             <div class="row">
@@ -53,12 +52,11 @@
         </div>
     </div><!--/header-middle-->
 
-    <div class="header-bottom"><!--header-bottom-->
-        <div class="container">
+    <div class="header-bottom "><!--header-bottom-->
             <div class="row">
                 <div class="col-sm-9">
                     <div class="mainmenu pull-left">
-                        <ul class="nav navbar-nav collapse navbar-collapse">
+                        <ul class="nav navbar-nav collapse navbar-collapse mt-2">
                             <li><a href="<%= root_path%>" class="active">Home</a></li>
                             <li class="dropdown"><a>E-Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
@@ -86,7 +84,7 @@
                                 </ul>
                             </li>
                             <li><a href="<%= orders_path%>"> My Orders</a></li>
-                             <li><a href="<%= cart_path(@cart)%>"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                             <li><a href="<%= cart_path(@cart)%>"><i class="fa fa-shopping-cart" style="font-size:23px"><span class='badge badge-warning' id="lblCartCount"><%= @cart.line_items.count%></span></i></a></li>
                             <li><a href="<%= contacts_path %>"> Contact Us</a></li>
                             <li>
                                 <div id="wishlist-show">
@@ -99,6 +97,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div><!--/header-bottom-->
 </header><!--/header-->  

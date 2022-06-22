@@ -31,9 +31,14 @@ class ChargesController < ApplicationController
     @order.pay_type = params[:pay_type]
     @order.address_id = params[:address_id].to_i
     @order.total = params[:total].to_i
- 
+    @order.user_id = current_user.id
+
+     
+    puts @order.inspect
+   
     respond_to do |format|
       if @order.save
+        add_from_cart_to_order_details(@cart, @order)
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
 
@@ -45,6 +50,11 @@ class ChargesController < ApplicationController
       end
     end
   end  
+
+  private
+
+  
+
 end
 
 # different method for stripe 

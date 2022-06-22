@@ -5,6 +5,7 @@ class Order < ApplicationRecord
     has_one :coupon, through: :coupon_used
 
     has_many :line_items, dependent: :destroy
+    has_many :order_details
     belongs_to :address
     
     belongs_to :user

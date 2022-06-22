@@ -11,6 +11,11 @@ class CartsController < ApplicationController
   # GET /carts/1 or /carts/1.json
   def show
     @coupon = Coupon.new
+    if @cart.total < 500
+      @shipping_cost = 50
+    else
+      @shipping_cost = 0
+    end
   end
 
   # GET /carts/new

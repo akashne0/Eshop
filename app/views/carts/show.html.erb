@@ -74,14 +74,15 @@
 						<li>
 							<%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
 								<%= f.hidden_field :total, :value => @cart.total %>
+								<%= f.hidden_field :shipping_cost, :value => @shipping_cost %>
 								<div class="d-flex justify-content-center">
 									<%= f.text_field :code, :placeholder => "Enter your coupon",class:"form-control form-control-lg text-center" %>
 									<%= f.submit "Apply", class:"btn btn-outline-warning btn-lg ms-3" %>
 								</div>  
 							<% end %>
 						</li>
-						<li style="font-size:15px" >Shipping Cost <span>Free</span></li>
-						<li style="font-size:15px" >Total <span id="cart-total">$<%= @cart.total%></li>
+						<li style="font-size:15px" >Shipping Cost <span>$<%= @shipping_cost%></span></li>
+						<li style="font-size:15px" >Total <span id="cart-total">$<%= @cart.total = @cart.total + @shipping_cost%></li>
 					</ul>
 					<div id= "cart-total-form" class="" >                 
 						<%= form_with  url: new_order_path, method: :get do |f| %>
@@ -89,7 +90,7 @@
 							<%= f.hidden_field :address_id, :value => 0 %>
 							<%= f.submit "Checkout", class:"btn btn-outline-success btn-lg mx-4 ", style:"font-size:18px" %>
 						<% end %>                 
-					</div>          
+					</div>         
 				</div>
 			</div>
 			<div class="col-sm-5">
@@ -114,5 +115,8 @@
   $("#address-select").change(function() {
   var id = $( "#address-select option:selected").val();
   $("#address_id").val(id);
+  if $("#total").val() {
+  	$("#total").val("<%=@cart.total%>");
+  }
   });
 </script>

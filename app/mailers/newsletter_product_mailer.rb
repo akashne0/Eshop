@@ -10,12 +10,11 @@ class NewsletterProductMailer < ApplicationMailer
     product_categories = ProductCategory.where(category_id: category_ids)
 
     product_categories.each do |product_category|
-      if Date.today.day - product_category.product.created_at.day == 1
+      if ((Time.now - product_category.product.created_at)/3600).to_i <= 24
         @products << product_category.product
       end
     end
     
-
     mail( :to => @newsletter.email,
     :subject => 'Thanks for subscribing with our newsletter' )
   end

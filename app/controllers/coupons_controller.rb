@@ -15,13 +15,17 @@ class CouponsController < ApplicationController
     def check_coupon_code
       code = params[:coupon][:code]
       total = params[:coupon][:total]
+      @shipping_cost = params[:coupon][:shipping_cost].to_f
 
       if code.present? and total.present?  
         @coupon = Coupon.where(code: code).first
         @coupon_price = total.to_f * (@coupon.percent_off/100)
 
-        @total = (total.to_f)-(@coupon_price)
-
+        if @shipping_cost.present?
+          @total = ((total.to_f)-(@coupon_price)) + @shipping_cost
+        else
+          @total = ((total.to_f)-(@coupon_price))
+        end
         respond_to do |format|
           format.js   {}          
         end

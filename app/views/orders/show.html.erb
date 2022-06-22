@@ -6,61 +6,78 @@
   </div>
 </section>
 <section id="cart_items" class="container">
-    <div class="table-responsive cart_info">
-      <table class="table table-condensed">
-        <thead>
-          <tr class="cart_menu">
-            <td class="image">Item</td>
-            <td class="description">Description</td>
-            <td class="price">Price</td>
-            <td class="quantity">Quantity</td>
-            <td class="total">Total</td>
-          </tr>
-        </thead>
-        <tbody>
-          <% @order.line_items.each do |item|%>  
-            <tr>
-              <td class="cart_price">
-                <%= image_tag(item.product.product_images.first.image, width:"100",class:"img-responsive") if item.product.product_images.first  %>
-              </td>
-              <td class="cart_description py-5">
-                <p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
-                <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
-              </td>
-              <td class="cart_price py-5">
-                <p>$<%= item.product.price %></p>
-              </td>
-
-              <td class="cart_price px-5 py-5">
-                <p> <%= item.quantity %></p>
-              </td>
-            
-              <td class="cart_total py-5">
-                <p class="cart_total_price">$<%= item.total%></p>
-              </td>
+  <div class="row">
+    <div class="col col-sm-8">
+      <div class="table-responsive cart_info">
+        <table class="table table-condensed">
+          <thead>
+            <tr class="cart_menu">
+              <td class="image">Item</td>
+              <td class="description">Description</td>
+              <td class="price">Price</td>
+              <td class="quantity">Quantity</td>
+              <td class="total">Total</td>
             </tr>
-          <% end %>							
-        </tbody>         
-      </table>
+          </thead>
+          <tbody>
+            <% @order.order_details.each do |item|%>  
+              <tr>
+                <td class="cart_price">
+                  <%= image_tag(get_image_by_product_id(item), width:"100",class:"img-responsive") if get_image_by_product_id(item)  %>
+                  <%# <%= image_tag(item.product.product_images.first.image, width:"100",class:"img-responsive") if item.product.product_images.first  %>
+                </td>
+                <td class="cart_description py-5">
+                  <p class="lead fw-normal mb-2"><%= get_name_by_product_id(item) %></p>
+                  <%# <p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
+                  <p><span class="text-muted">desc.:</span><%= get_description_by_product_id(item)%></p>
+                  <%# <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
+                </td>
+                <td class="cart_price py-5">
+                  <p>$<%= item.amount/item.quantity %></p>
+                  <%# <p>$<%= item.product.price</p>  %>
+                </td>
+
+                <td class="cart_price px-5 py-5">
+                  <p> <%= item.quantity %></p>
+                </td>
+              
+                <td class="cart_total py-5">
+                  <p class="cart_total_price">$<%= item.amount%></p>
+                </td>
+              </tr>
+            <% end %>							
+          </tbody>         
+        </table>
+      </div>
     </div>
+    <div class="col col-sm-4">
+      <div class="heading"><br><br>       
+        <h3>Your Billing/Shipping address :</h3> 
+        <p><%= "  #{@address.address_2}, #{@address.address_2}," %><br> 
+        <%= " #{@address.state}, #{@address.city},#{@address.zipcode} " %></p>  
+      </div><br>
+      <div class="heading">       
+        <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %></span></h3>  
+      </div>    
+    </div>
+  </div>
 </section> <!--/#product_items-->
 
 
-	<section id="do_action">
+	<%# <section id="do_action">
 		<div class="container">
 			<div class="row">
         <div class="col-sm-7">
           <div class="heading">       
             <h3>Your Billing/Shipping address :</h3> 
-            <p><%= "  #{@address.address_2}, #{@address.address_2}," %><br> 
-            <%= " #{@address.state}, #{@address.city},#{@address.zipcode} " %></p>  
-          </div><br>
+            <p><%= "  #{@address.address_2}, #{@address.address_2},"<br>  %>
+            <%# <%= " #{@address.state}, #{@address.city},#{@address.zipcode} "</p>   %>
+          <%# </div><br>
           <div class="heading">       
-            <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %></span></h3> 
-             
-          </div>
+            <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %> <%#</span></h3>  
+          <%# </div>
         </div>			
 			</div>
 		</div>
-	</section><!--/#do_action-->
+	</section><!--/#do_action--> %> 
 

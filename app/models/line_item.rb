@@ -16,12 +16,11 @@ class LineItem < ApplicationRecord
   def total
     product.price * quantity
   end
-
    
   def subtotal
     line_items.collect{|line_item| line_item.valid? ? line_item.unit_price*line_item.quantity : 0}.sum
   end
-
+  
 
   private
     def set_unit_price
