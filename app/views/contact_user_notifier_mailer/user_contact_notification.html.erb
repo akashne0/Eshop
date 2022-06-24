@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div class="text-center" >
+        <p>Dear Administrator,</p> 
+        <p>Please check below details of customer.</p> 
+    </div>           
+    <section id="cart_items" class="container">
+      <div class="row">
+        <div class="col col-sm-8">
+            <table class="table table-condensed">
+              <thead>
+                <tr class="cart_menu" style="background-color:skyblue;border:2px solid black;">
+                  <td class="image">Name</td>
+                  <td class="description">Email</td>
+                  <td class="price">Contact No.</td>
+                  <td class="quantity">Comment</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background-color:skyblue;border:2px solid black;">
+                  <td class="cart_price">
+                    <%= @name %>
+                  </td>
+                  <td class="cart_description py-5">
+                    <%= @email %>
+                  </td>
+                  <td class="cart_price py-5">
+                    <%= @contact_no %>
+                  </td>
+                  <td class="cart_price px-5 py-5">
+                    <%= @message %>
+                  </td>
+                </tr>		
+              </tbody>         
+            </table>
+        </div>
+      </div>
+    </section> <!--/#product_items-->
+    <div class="text-center" >
+        <p><%= @admin_note %></p> 
+    </div>   
+  </body>
+</html>
+
