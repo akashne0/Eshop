@@ -21,9 +21,6 @@ class OrdersController < ApplicationController
     elsif params[:address_id].to_i == 0
       redirect_to cart_path(@cart), notice: "Please Add Address To Continue"
       return
-    elsif params[:total].to_i == 0
-      redirect_to cart_path(@cart), notice: "Total Not Found"
-      return
     else
       @order = Order.new
       @total = params[:total]

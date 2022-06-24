@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <section class="container" >
+      <div class="container h-100">
+          <div class="text-center" >
+              <p><h1>Order Details</h1></p> 
+          </div>           
+      </div>
+    </section>
+    <section id="cart_items" class="container">
+      <div class="row">
+        <div class="col col-sm-8">
+          <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+              <thead>
+                <tr class="cart_menu" style="background-color:grey;">
+                  <td class="image">Item</td>
+                  <td class="description">Description</td>
+                  <td class="price">Price</td>
+                  <td class="quantity">Quantity</td>
+                  <td class="total">Total</td>
+                </tr>
+              </thead>
+              <tbody>
+                   <% @orders.each do |item|%>  
+                      <tr style="background-color:grey;">
+                        <td class="cart_price">
+                          <%= image_tag(Product.find(item.product_id).product_images.first.image, width:"100",class:"img-responsive") if Product.find(item.product_id).product_images.first.image  %>
+                          <%# <%= image_tag(item.product.product_images.first.image, width:"100",class:"img-responsive") if item.product.product_images.first  %>
+                        </td>
+                        <td class="cart_description py-5">
+                          <p class="lead fw-normal mb-2"><%= Product.find(item.product_id).name.capitalize%></p>
+                          <%# <p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
+                          <p><span class="text-muted">desc.:</span><%= Product.find(item.product_id).short_description.capitalize%></p>
+                          <%# <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
+                        </td>
+                        <td class="cart_price py-5">
+                          <p>$<%= item.amount/item.quantity %></p>
+                          <%# <p>$<%= item.product.price</p>  %>
+                        </td>
+
+                        <td class="cart_price px-5 py-5">
+                          <p> <%= item.quantity %></p>
+                        </td>
+                      
+                        <td class="cart_total py-5">
+                          <p class="cart_total_price">$<%= item.amount%></p>
+                        </td>
+                      </tr>
+                    <% end %>			
+              </tbody>         
+            </table>
+          </div>
+        </div>
+        <div class="col col-sm-4">
+          <div class="heading"><br><br>       
+            <h3>Your Billing/Shipping address :</h3> 
+            <p><%= "  #{@address.address_2}, #{@address.address_2}," %><br> 
+            <%= " #{@address.state}, #{@address.city},#{@address.zipcode} " %></p>  
+          </div><br>
+          <div class="heading">       
+            <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %></span></h3>  
+          </div>    
+        </div>
+      </div>
+    </section> <!--/#product_items-->
+  </body>
+</html>
+
