@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <div class="col col-sm-4">
+         <table>
+          <tbody>                
+            <div class="well">
+                <h2>Details:</h2></th><br><br>
+                <% @orders_created.each do |order_created| %>
+                    <hr>
+                    <div class="jumbotron p-0">        
+                        <div class="container" style="font-size:1.5rem;">
+                            <% @user = User.find(order_created.user_id) %>
+                            <% @total = order_created.total%>
+                            <% @payment_type = order_created.pay_type%>
+                            <p class="p-0 m-0" >Name: <%= @user.name %></p>
+                            <p class="p-0 m-0" >Email: <%= @total %></p>
+                            <p class="p-0 m-0" >Message: <%= @payment_type %></p>                        
+                        </div>
+                    </div>
+                <% end %>                         
+            </div>                                        
+          </tbody>
+        </table>			    		 
+      </div>
+    </section> <!--/#product_items-->
+  </body>
+</html>
+

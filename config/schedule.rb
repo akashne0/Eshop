@@ -19,6 +19,16 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.minute do
-    rake 'newsletter:daily'
-end
+
+
+# every 1.minute do
+#     rake 'newsletter:daily'
+# end
+
+# every 1.minute do
+#     rake 'order:daily'
+# end
+
+# every 1.minute do
+#     rake 'user:weekly'
+# end

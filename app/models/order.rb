@@ -13,7 +13,13 @@ class Order < ApplicationRecord
     validates :address_id, presence: true
     validates :total, presence: true
     validates :pay_type, presence: true
-   
+
+    after_update :send_order_notification
+
+    def send_order_notification
+        OrderNotifierMailer.order_update_notification(id).deliver
+    end
+
     def add_line_items_from_cart(cart)
         cart.line_items.each do |item|
             item.cart_id = nil

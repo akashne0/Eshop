@@ -9,9 +9,9 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to contacts_path, notice: "Your Query added Successfully!"}
+        format.html{ redirect_to contacts_path, notice: "Your Query added Successfully!"}
       else
-        format.html { render :index, status: :unprocessable_entity }
+        format.html{ render :index, status: :unprocessable_entity }
       end
     end
   end

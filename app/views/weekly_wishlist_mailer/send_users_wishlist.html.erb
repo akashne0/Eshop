@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <div class="col col-sm-4">
+         <table>
+          <tbody>                
+            <div class="well">
+                <% @users_wishlist.each do |user_wishlist| %>
+                    <div class="jumbotron p-0">   
+                        <div class="container" style="font-size:1.5rem;">
+                          <%if user_wishlist.wishlist.present? %>
+                            <% @product_ids = user_wishlist.try(:wishlist).try(:product_id) %>
+                            <% @product_ids.each do |product_id|%>
+                              <%product = Product.find(product_id)%>
+                              <b>Details:</b>
+                              <p class="p-0 m-0" >Name: <%= user_wishlist.name %></p>
+                              <p class="p-0 m-0" >Product Id: <%= product.id %></p>
+                              <p class="p-0 m-0" >Product: <%= product.short_description %></p><hr>
+                            <% end %>
+                          <% end %>                    
+                        </div>
+                    </div>
+                <% end %>                         
+            </div>                                        
+          </tbody>
+        </table>			    		 
+      </div>
+    </section> <!--/#product_items-->
+  </body>
+</html>
+

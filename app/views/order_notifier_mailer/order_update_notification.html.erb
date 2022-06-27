@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <section class="container" >
+      <div class="container h-100">
+          <div class="text-center" >
+              <p><h1>Order Status Details</h1></p> 
+          </div> 
+          <div class="heading">       
+          <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %></span></h3>  
+        </div>            
+      </div>
+    </section>
+      <div class="col col-sm-4">
+        <div class="heading"><br><br>       
+          <h3>Your Billing/Shipping address :</h3> 
+          <p><%= "  #{@address.address_2}, #{@address.address_2}," %><br> 
+          <%= " #{@address.state}, #{@address.city},#{@address.zipcode} " %></p>  
+        </div><br>  
+      </div>
+    </section> <!--/#product_items-->
+  </body>
+</html>
