@@ -1,0 +1,9 @@
+<%= form_with(model: @contact) do |f| %>
+    <div class="field">
+      <%= f.label :message  %>
+      <%= f.text_area :message  %>
+    </div>
+      <%= f.submit "Add address" %>
+    
+<% end %>
+      

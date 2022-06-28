@@ -1,5 +1,5 @@
 class Contact < ApplicationRecord
-
+    has_rich_text :message
     validates :name, :contact_no, :email, :message,  presence: true
 
     after_create_commit :send_admin_notification

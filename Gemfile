@@ -23,10 +23,9 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'rails_admin', '~> 3.0'
 gem 'devise'
-gem "image_processing", '~> 1.2'
 gem 'font-awesome-rails'
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 #omniauth
 gem 'omniauth-rails_csrf_protection'
