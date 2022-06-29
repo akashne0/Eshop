@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'check_coupon_code', to: 'coupons#check_coupon_code'
   delete 'remove_from_wishlist', to: 'wishlists#remove_from_wishlist' 
   
+  mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
