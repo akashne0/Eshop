@@ -35,10 +35,13 @@ class LineItemsController < ApplicationController
       
       respond_to do |format|
         if @line_item.save
-
+          unless current_user.wishlist.product_id.empty?
           # format.html { redirect_to @line_item.cart}
           format.html { redirect_to wishlist_path(params[:wishlist_id]), notice: "Product added to cart successfully."}
           format.json { render action: 'show', status: :created, location: @line_item }
+          else
+          format.html { redirect_to root_url, notice: "Product added to cart successfully But Your wishlist is empty!"}
+          end
         # else
         #   format.html { render :new, status: :unprocessable_entity }
         #   format.json { render json: @line_item.errors, status: :unprocessable_entity }

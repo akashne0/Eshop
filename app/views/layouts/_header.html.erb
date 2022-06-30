@@ -88,7 +88,7 @@
                             <li><a href="<%= contacts_path %>"> Contact Us</a></li>
                             <li>
                                 <div id="wishlist-show">
-                                    <% if user_signed_in? && current_user.wishlist %>
+                                    <% if user_signed_in? && current_user.wishlist && current_user.wishlist.product_id %>
                                         <li><a href="<%= wishlist_path(current_user.try(:wishlist).try(:id))%>"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <% end %>
                                 </div>

@@ -27,7 +27,6 @@ gem 'font-awesome-rails'
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 
-gem 'ckeditor', '~> 4.3.0'
 #omniauth
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-google-oauth2'

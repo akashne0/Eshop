@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   post 'check_coupon_code', to: 'coupons#check_coupon_code'
   delete 'remove_from_wishlist', to: 'wishlists#remove_from_wishlist' 
   
-  mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
@@ -18,7 +17,7 @@ Rails.application.routes.draw do
   resources :charges, only: [:new, :create]
   resources :paypals, only: [:new, :create]  
   resources :track_orders,only: [:new, :create, :show]  
-  resources :contacts, only: [:index, :create, :new]
+  resources :contacts, only: [:index, :create]
 
   resources :newsletters, only: [:index, :create, :destroy] 
   get '/newsletters/subscribe', to: 'newsletters#subscribe'

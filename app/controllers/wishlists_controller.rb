@@ -2,11 +2,6 @@ class WishlistsController < ApplicationController
   include CurrentCart
   before_action :set_wishlist, only: %i[ show edit update destroy ]
 
-  # GET /wishlists or /wishlists.json
-  def index
-    @wishlists = Wishlist.all
-  end
-
   # GET /wishlists/1 or /wishlists/1.json
   def show
     @wishlist = current_user.wishlist
@@ -19,14 +14,6 @@ class WishlistsController < ApplicationController
 
   end
 
-  # GET /wishlists/new
-  def new
-    @wishlist = Wishlist.new
-  end
-
-  # GET /wishlists/1/edit
-  def edit
-  end
 
   # POST /wishlists or /wishlists.json
   def create
@@ -37,7 +24,6 @@ class WishlistsController < ApplicationController
         @wishlist = current_user.build_wishlist(wishlist_params)
         @wishlist.product_id << params[:product_id]
         puts "New wishlist"
-
         @wishlist.save
         @message = "Wishlist created and Product added to wishlist!" 
         
@@ -69,14 +55,16 @@ class WishlistsController < ApplicationController
     # byebug
     @wishlist = current_user.wishlist
     @wishlist.product_id.delete(params[:product_id].to_i)
-    @wishlist.save
-
-    respond_to do |format|
-      format.html { redirect_to wishlist_path(@wishlist.id), notice: "Product removed from wishlist!" }
+    if @wishlist.product_id.empty?
+      @wishlist.destroy
+      redirect_to root_url, notice: "Your Wishlist is Empty!"
+    else
+      @wishlist.save
+      respond_to do |format|
+        format.html { redirect_to wishlist_path(@wishlist.id), notice: "Product removed from wishlist!" }
+      end
     end
   end
-  
-
   
 
   # PATCH/PUT /wishlists/1 or /wishlists/1.json
