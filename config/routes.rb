@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   resources :products, only: [:index, :show] 
+  #   resources :product_images
+  # end
   resources :categories, only: [:show]
   resources :webhooks, only: [:create]
   resources :charges, only: [:new, :create]

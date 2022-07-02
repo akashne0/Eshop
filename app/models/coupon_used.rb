@@ -1,5 +1,5 @@
 class CouponUsed < ApplicationRecord
-  belongs_to :coupon
-  belongs_to :user
-  belongs_to :order
+  belongs_to :coupon, optional: true
+  belongs_to :user, optional: true
+  belongs_to :order, optional: true
 end

@@ -210,15 +210,6 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
   create_table "product_attributes_assocs", force: :cascade do |t|
   end
 
-  create_table "product_categories", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_product_categories_on_category_id"
-    t.index ["product_id"], name: "index_product_categories_on_product_id"
-  end
-
   create_table "product_images", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.string "image_name"
@@ -291,8 +282,6 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
   add_foreign_key "line_items", "products"
   add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "users"
-  add_foreign_key "product_categories", "categories"
-  add_foreign_key "product_categories", "products"
   add_foreign_key "product_images", "products"
   add_foreign_key "wishlists", "users"
 end

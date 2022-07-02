@@ -41,6 +41,7 @@ class LineItemsController < ApplicationController
           format.json { render action: 'show', status: :created, location: @line_item }
           else
           format.html { redirect_to root_url, notice: "Product added to cart successfully But Your wishlist is empty!"}
+          current_user.wishlist.destroy
           end
         # else
         #   format.html { render :new, status: :unprocessable_entity }

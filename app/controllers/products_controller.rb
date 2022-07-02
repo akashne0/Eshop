@@ -10,6 +10,8 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    # @recommend_products = Product.last(3)
+    # @images = ProductImage.all
   end
 
 

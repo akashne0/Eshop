@@ -11,7 +11,8 @@ class ContactsController < ApplicationController
       if @contact.save
         format.html{ redirect_to contacts_path, notice: "Your Query added Successfully!"}
       else
-        format.html{ render :index, status: :unprocessable_entity }
+        format.html { render :index, status: :unprocessable_entity }
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
   end

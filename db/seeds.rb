@@ -12,5 +12,4 @@
         short_description: "ethenic wear",
         price: 80.0
     )
-
 end

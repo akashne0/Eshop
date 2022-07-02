@@ -5,7 +5,8 @@
             <div class="col-sm-2">
             <div class="companyinfo">
                 <h2><span>e</span>-shop</h2>
-                <%# <p><%= Cm.content.where(title: footer).first %></p> %>
+                <%# Please change this code and write this method in helper %>
+                <%= Cm.where(title: "Footer").first.try(:content).try(:body)%>
             </div>
             </div>
             <div class="col-sm-7">
@@ -149,8 +150,12 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2013 E-EShop Inc. All rights reserved.</p>
-                <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+                <div class="col col-sm-6">
+                <p class="pull-left">Copyright © 2022 E-EShop Inc. All rights reserved.</p>
+                </div>
+                <div class="col col-sm-6">
+                <p class="pull-right">Designed by <span>Akash</span></p>
+                </div>
             </div>
         </div>
     </div>

@@ -5,10 +5,11 @@ class Order < ApplicationRecord
     has_one :coupon, through: :coupon_used
 
     has_many :line_items, dependent: :destroy
-    has_many :order_details
+    has_many :products, through: :line_items
+    has_many :order_details, dependent: :destroy
 
-    belongs_to :address
-    belongs_to :user
+    belongs_to :address, optional: true
+    belongs_to :user, optional: true
 
     validates :address_id, presence: true
     validates :total, presence: true

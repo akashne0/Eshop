@@ -1,6 +1,6 @@
 class Contact < ApplicationRecord
-    validates :name, :contact_no, :email, :message,  presence: true
 
+    validates :name, :contact_no, :email, :message,  presence: true
     after_create_commit :send_admin_notification
     after_update :send_user_notification
 
