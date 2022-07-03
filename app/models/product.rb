@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-    has_many_attached :image, dependent: :delete_all
+    has_many_attached :product_images, dependent: :delete_all
     has_and_belongs_to_many :categories, dependent: :delete_all
     has_many :line_items, dependent: :delete_all
     has_many :orders, through: :line_items, dependent: :delete_all
@@ -16,5 +16,4 @@ class Product < ApplicationRecord
             return false
         end
     end
-
 end

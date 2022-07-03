@@ -23,7 +23,7 @@
             <% @order.order_details.each do |item|%>  
               <tr>
                 <td class="cart_price">
-                  <%= image_tag(get_image_by_product_id(item), width:"100",class:"img-responsive") if get_image_by_product_id(item)  %>
+                  <%= image_tag (get_image_by_product_id(item)), width:"100",class:"img-responsive" if get_image_by_product_id(item)  %>
                   <%# <%= image_tag(item.product.product_images.first.image, width:"100",class:"img-responsive") if item.product.product_images.first  %>
                 </td>
                 <td class="cart_description py-5">

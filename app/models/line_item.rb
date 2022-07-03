@@ -1,7 +1,7 @@
 class LineItem < ApplicationRecord
   before_save :set_total
   before_save :set_unit_price
-  belongs_to :order
+  belongs_to :order, optional: true
   belongs_to :product, optional: true
   belongs_to :cart, optional: true
 

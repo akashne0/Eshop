@@ -13,7 +13,7 @@
                 <div class="product-image-wrapper">
                   <div class="single-products">
                     <div class="productinfo text-center">
-                      <%= image_tag(product.product_images.first.image,height:"200") if product.product_images.first %>
+                      <%= image_tag (product.product_images.first),height:"200" if product.product_images.first %>
                       <h2>$<%= product.price %></h2>
                       <p><%= product.short_description %></p>
                     </div>
