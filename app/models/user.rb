@@ -9,8 +9,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2, :twitter, :facebook]
 
-  after_create :send_user_notification
+  after_create :send_user_notification unless :twitter
   after_create :send_admin_notification
+
+
 
   def send_user_notification
     UserNotifierMailer.user_creation_notification(email, password).deliver

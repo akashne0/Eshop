@@ -27,7 +27,7 @@
                             <p><a href="<%= line_items_path(product_id: item, wishlist_id: @wishlist.id ) %>" data-method="post" class="btn btn-outline-success btn-lg"><i class="fa fa-shopping-cart"></i>Add to cart</a></p>
                         </td>                    
                         <td class="cart_total px-5 py-5">
-                            <%= link_to '', remove_from_wishlist_path(product_id: item), method: :delete, class:"fa fa-trash fa-lg text-danger " %>
+                            <%= link_to '', remove_from_wishlist_path(product_id: item), method: :delete, class:"fa fa-trash fa-lg text-danger", id:"delete" %>
 						</td> 
                 <% end %>
             </tbody>

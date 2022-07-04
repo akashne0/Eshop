@@ -7,8 +7,7 @@
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
-  <a class="btn btn-md btn-google text-center btn-outline col-md-12" href="<%= user_google_oauth2_omniauth_authorize_path%>" data-method="post"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup Using Google</a><br>
-  <a class="btn btn-md btn-google text-center btn-outline col-md-12" href="<%= user_facebook_omniauth_authorize_path%>" data-method="post"> <i class="fa fa-facebook fa-fw" style='color: #3b3c8f'></i> Sign in with Facebook</a><br>                            
-  <a class="btn btn-md btn-google text-center btn-outline col-md-12" href="<%= user_twitter_omniauth_authorize_path%>" data-method="post"><i class="fa fa-twitter" style='color: #0d0d40'></i> Sign in with Twitter</a><br>                                     
-                              
+  <a class="btn btn-default text-center btn-outline col-md-12 h1" href="<%= user_google_oauth2_omniauth_authorize_path%>" data-method="post"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup Using Google</a><br>
+  <a class="btn btn-default text-center btn-outline col-md-12 h1" href="<%= user_facebook_omniauth_authorize_path%>" data-method="post"> <i class="fa fa-facebook fa-fw" style='color: #3b3c8f'></i> Sign in with Facebook</a><br>                            
+  <a class="btn btn-default text-center btn-outline col-md-12 h1" href="<%= user_twitter_omniauth_authorize_path%>" data-method="post"><i class="fa fa-twitter" style='color: #0d0d40'></i> Sign in with Twitter</a><br>
 <% end %>

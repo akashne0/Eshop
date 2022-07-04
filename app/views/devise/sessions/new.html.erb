@@ -1,10 +1,10 @@
 <section class="login-block">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <%= form_for(resource, as: resource_name, url: session_path(resource_name),class:"md-float-material form-material") do |f| %>
                     <div class="auth-box card">
-                        <div class="card-block">
+                        <div class="card-block justify-content-center">
                             <div class="row">
                                 <div class="col-md-12">
                                     <h3 class="text-center heading" >Log In</h3>
@@ -12,16 +12,16 @@
                                  </div>
                             </div>
                        
-                            <div class="form-group form-primary">
+                            <div class="form-group form-primary px-4">
                                 <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder:"Email" %>
                                
                             </div>
 
-                            <div class="form-group form-primary">
+                            <div class="form-group form-primary px-4">
                                 <%= f.password_field :password, autocomplete: "new-password", class: "form-control",placeholder:"Password" %>
                             </div>
 
-                            <div class="form-group form-primary">
+                            <div class="form-group form-primary px-4">
                                 <% if devise_mapping.rememberable? %>
                                     <div class="form-group">
                                     <%= f.check_box :remember_me %>
@@ -30,20 +30,17 @@
                                 <% end %>                              
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">                                  
-                                  <%= f.submit "Log In", class: "btn btn-primary btn-md btn-block waves-effect text-center col-md-12"%>
+                            <div class="row  justify-content-center">
+                                <div class="col-md-11">
+                                  <%= f.submit "Log In", class: "btn btn-primary  text-center col-md-12 h1"%>
                                  </div>
                             </div>
                             
                             <p class="text-inverse text-center" >Forgot your password? <a href="<%= new_password_path(resource_name)%>" >Click Here!</a></p>
-
-                            <div class="or-container"><div class="line-separator"></div> <div class="or-label">or</div><div class="line-separator"></div></div>
+                            <div class="or-container"><div class="line-separator"></div> <div class="or-label text-center">or</div><div class="line-separator"></div></div>
 
                             <%= render "devise/shared/links" %>
-                                                                                 
                             <br>
-
                             <p class="text-inverse text-center" >Don't have an account? <a href="<%= new_registration_path(resource_name)%>" >Sign up</a></p>
                         </div>
                     </div>
@@ -53,7 +50,3 @@
         </div>
     </div>
 </section>
-
-
-
-

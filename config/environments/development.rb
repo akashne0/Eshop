@@ -96,8 +96,13 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # config.hosts << "www.eshop.com"
+
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
   # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
+
+
+# Rails.application.routes.default_url_options[:host] = 'www.eshop.com:3000'

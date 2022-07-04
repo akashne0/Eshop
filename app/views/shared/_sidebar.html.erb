@@ -2,13 +2,15 @@
 <div class="panel-group category-products" id="accordian"><!--category-productsr-->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h4 class="panel-title">
-				<% Category.all.each do |category| %>
-					<li class="nav-item">
-						<%= link_to category.name.capitalize, category_path(category), class:"nav-link" %>
-					</li>
-				<% end %>
-			</h4>
+			<h2 class="single-widget">
+				<ul class="nav-stacked">
+                    <% Category.all.each do |category| %>
+                        <li>
+                            <%= link_to category.name.capitalize, category_path(category) %>
+                        </li><br>
+                    <% end %>
+                </ul>
+			</h2>
 		</div>
 		<%# <div id="sportswear" class="panel-collapse collapse">
 			<div class="panel-body">
