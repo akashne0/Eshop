@@ -1,2 +1,3 @@
 $("#cart-total").text("<%= @total %>");
 $("#total").val("<%= @total %>");
+$("#coupon-buttons").html('<%= escape_javascript render "coupons/check_coupon_code"%>');

@@ -1,24 +1,12 @@
 class LineItemsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:create]
-  before_action :set_line_item, only: %i[ show edit update destroy]
+  before_action :set_line_item, only: %i[ edit update destroy]
 
-  # GET /line_items or /line_items.json
-  def index
-    @line_items = LineItem.all
-  end
-
-  # GET /line_items/1 or /line_items/1.json
-  def show
-  end
 
   # GET /line_items/new
   def new
     @line_item = LineItem.new
-  end
-
-  # GET /line_items/1/edit
-  def edit
   end
 
   # POST /line_items or /line_items.json

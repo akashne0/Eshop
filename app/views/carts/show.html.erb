@@ -5,7 +5,7 @@
 		<% else %>
 			<h2 class="fw-normal mb-0 text-black">Your Cart is Empty <%=current_user.name.split(" ").first %></h2>
 		<% end %>
-	</p>		
+	</p>
 </div>
 
 
@@ -23,7 +23,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @cart.line_items.each do |item|%>  
+				<% @cart.line_items.each do |item|%>
 					<tr>
 						<td class="cart_price">
 							<%= image_tag (item.product.product_images.first), width:"100",class:"img-responsive" if item.product.product_images.first  %>
@@ -44,7 +44,7 @@
 									<a class="cart_quantity_up" href=""> + </a>
 									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
 									<a class="cart_quantity_down" href=""><%= item.quantity %> <%#</a>
-								</div> 
+								</div>
 								<h5 class="cart_price"></h5>
 							</td>%>
 						<td class="cart_total py-5">
@@ -71,26 +71,26 @@
 				<div class="total_area">
 					<ul>
 						<li style="font-size:15px">Cart Sub Total<span>$<%= @cart.total%></span></li>
-						<li>
+						<li id="new-coupon">
 							<%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
 								<%= f.hidden_field :total, :value => @cart.total %>
 								<%= f.hidden_field :shipping_cost, :value => @shipping_cost %>
 								<div class="d-flex justify-content-center">
 									<%= f.text_field :code, :placeholder => "Enter your coupon",class:"form-control form-control-lg text-center" %>
-									<%= f.submit "Apply", class:"btn btn-outline-warning btn-lg ms-3" %>
-								</div>  
+									<span id="coupon-buttons" ><%= f.submit "Apply", class:"btn btn-outline-warning btn-lg ms-3" %></span>
+								</div>
 							<% end %>
 						</li>
 						<li style="font-size:15px" >Shipping Cost <span>$<%= @shipping_cost%></span></li>
 						<li style="font-size:15px" >Total <span id="cart-total">$<%= @cart.total = @cart.total + @shipping_cost%></li>
 					</ul>
-					<div id= "cart-total-form" class="" >                 
+					<div id= "cart-total-form" class="" >
 						<%= form_with  url: new_order_path, method: :get do |f| %>
 							<%= f.hidden_field :total, :value => @cart.total+@shipping_cost %>
 							<%= f.hidden_field :address_id, :value => 0 %>
 							<%= f.submit "Checkout", class:"btn btn-outline-success btn-lg mx-4 ", style:"font-size:18px" %>
-						<% end %>                 
-					</div>         
+						<% end %>
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-5">
@@ -98,12 +98,12 @@
 					<div id="new-address-form">
 					<!--address selection-->
 						<div class="select-class mx-3">
-							<%= select_tag :temp_address, options_for_select(get_user_addresses), 
-							prompt: "Please Select Address",  id:"address-select", style:"font-size:13px"%> 
+							<%= select_tag :temp_address, options_for_select(get_user_addresses),
+							prompt: "Please Select Address",  id:"address-select", style:"font-size:13px"%>
 						</div><br>
 							<!--add address -->
 						<%= link_to "Add new address", new_address_path, class:"btn btn-outline-success btn-lg ms-3", style:"font-size:15px", remote: true %>
-					</div>								
+					</div>
 				</div>
 			</div>
 		</div>

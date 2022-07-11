@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_30_051006) do
+ActiveRecord::Schema.define(version: 2022_07_11_065827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,9 +81,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
     t.string "name"
     t.integer "parent_id"
     t.integer "created_by"
-    t.date "created_date"
     t.integer "modify_by"
-    t.date "modify_date"
     t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -100,9 +98,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
     t.text "meta_description"
     t.text "meta_keywords"
     t.integer "created_by"
-    t.date "created_date"
     t.integer "modify_by"
-    t.date "modify_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -111,9 +107,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
     t.string "conf_key"
     t.string "conf_value"
     t.integer "created_by"
-    t.date "created_date"
     t.integer "modify_by"
-    t.date "modify_date"
     t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -126,9 +120,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
     t.text "message"
     t.text "admin_note"
     t.integer "created_by"
-    t.date "created_date"
     t.integer "modify_by"
-    t.date "modify_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -140,9 +132,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
     t.text "message"
     t.text "admin_note"
     t.integer "created_by"
-    t.date "created_date"
     t.integer "modify_by"
-    t.date "modify_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -199,10 +189,10 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "address_id"
     t.integer "total"
-    t.string "pay_type"
     t.integer "status", default: 0
     t.bigint "coupon_id"
     t.bigint "user_id"
+    t.string "pay_type"
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -210,14 +200,21 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
   create_table "product_attributes_assocs", force: :cascade do |t|
   end
 
+  create_table "product_categories", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_product_categories_on_category_id"
+    t.index ["product_id"], name: "index_product_categories_on_product_id"
+  end
+
   create_table "product_images", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.string "image_name"
     t.boolean "status"
     t.integer "created_by"
-    t.date "created_date"
     t.integer "modify_by"
-    t.date "modify_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_product_images_on_product_id"
@@ -238,9 +235,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
     t.text "meta_description"
     t.text "meta_keywords"
     t.integer "created_by"
-    t.date "created_date"
     t.integer "modify_by"
-    t.date "modify_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "stripe_product_id"
@@ -263,6 +258,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
     t.string "uid", limit: 50, default: "", null: false
     t.boolean "admin", default: false
     t.string "stripe_customer_id"
+    t.integer "status", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -282,6 +278,8 @@ ActiveRecord::Schema.define(version: 2022_06_30_051006) do
   add_foreign_key "line_items", "products"
   add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_categories", "categories"
+  add_foreign_key "product_categories", "products"
   add_foreign_key "product_images", "products"
   add_foreign_key "wishlists", "users"
 end

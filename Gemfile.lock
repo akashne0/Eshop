@@ -83,10 +83,6 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     chronic (0.10.2)
-    ckeditor (4.3.0)
-      orm_adapter (~> 0.5.0)
-      terrapin
-    climate_control (0.2.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     devise (4.8.1)
@@ -266,8 +262,6 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     stripe (6.2.0)
-    terrapin (0.6.0)
-      climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
     tilt (2.0.10)
     turbo-rails (1.1.1)
@@ -313,7 +307,6 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
-  ckeditor (~> 4.3.0)
   devise
   font-awesome-rails
   image_processing (~> 1.2)

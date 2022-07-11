@@ -54,7 +54,7 @@
           
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                 data-key="<%= Rails.application.credentials.dig(:stripe, :stripe_public_key) %>"
-                data-description="A month's subscription"
+                data-description="Enter Card Details"
                 data-amount="<%= (@total.to_i*100) %>"
                 data-locale="auto"></script>
               <% end %>

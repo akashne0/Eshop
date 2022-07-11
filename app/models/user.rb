@@ -1,8 +1,9 @@
 class User < ApplicationRecord
-  has_many :addresses
-  has_many :orders
-  has_one :wishlist
-  
+  enum status: {enable: 0, disabled: 1}
+  has_many :addresses, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_one :wishlist, dependent: :destroy
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -12,7 +13,13 @@ class User < ApplicationRecord
   after_create :send_user_notification unless :twitter
   after_create :send_admin_notification
 
+  def active_for_authentication?
+   super && !disabled?
+  end
 
+  def inactive_message
+     !disabled? ? super : :account_inactive
+  end
 
   def send_user_notification
     UserNotifierMailer.user_creation_notification(email, password).deliver
@@ -38,9 +45,9 @@ class User < ApplicationRecord
     where(provider: provider_data.provider, uid: provider_data.uid).first_or_create  do |user|
       user.email = provider_data.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.name = provider_data.info.name 
+      user.name = provider_data.info.name
     end
-  end 
+  end
 
   def email_required?
     false

@@ -23,14 +23,17 @@
       <%= render 'layouts/header'%>
         <!-- notice -->   
         <div class="container">
-          <div class="col col-md-12 text-center" id="notice" >
+          <div class="col col-md-12 text-center noticee" id="notice" >
             <%if notice %>
-              <p class="alert alert-info " role="alert" ><span ><%= notice %></span> 
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <p class="alert alert-info" role="alert" ><span><%= notice %></span> 
+                <%# <button type="button" class="close" data-dismiss="alert">&times;</button> %>
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </p>
             <% end %>
           </div>
-          <div class="col col-md-12 text-center" id="alert"  >
+          <div class="col col-md-12 text-center alerte" id="alert"  >
             <%if alert%>
                 <p class="alert alert-warning " role="alert" ><%= alert %><button type="button" class="close" data-dismiss="alert">&times;</button></p>                
             <% end %> 
@@ -42,6 +45,11 @@
       <!--footer-->
       <%= render 'layouts/footer'%>
     </div>
+
+    <%# <script>
+        $(".noticee").fadeOut(5000);
+        $("alerte").fadeOut(5000);
+    </script> %>
   </body>
 </html>
 
