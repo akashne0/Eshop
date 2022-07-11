@@ -70,6 +70,10 @@
 			<div class="col-sm-7">
 				<div class="total_area">
 					<ul>
+						<div id="coupon-notice">
+						</div>
+					</ul>
+					<ul>
 						<li style="font-size:15px">Cart Sub Total<span>$<%= @cart.total%></span></li>
 						<li id="new-coupon">
 							<%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
@@ -81,8 +85,22 @@
 								</div>
 							<% end %>
 						</li>
-						<li style="font-size:15px" >Shipping Cost <span>$<%= @shipping_cost%></span></li>
-						<li style="font-size:15px" >Total <span id="cart-total">$<%= @cart.total = @cart.total + @shipping_cost%></li>
+						<li>
+							<% if @shipping_cost == 0 %>
+							<p style="font-size:15px">Shipping Cost <span><del>$50</del></span></p>
+							<% end %>
+							<p style="font-size:15px">Shipping Cost <span>$<%= @shipping_cost%></span></p>
+						</li>
+						<li>
+							<% if @shipping_cost == 0 %>
+							<p style="font-size:15px">Total <span><del>$<%= @cart.total = @cart.total + @shipping_cost + 50 %></del></span></p>
+							<% end %>
+							<div id="coupon-discount">
+								<!-- This is for code -->
+							</div>
+
+							<p style="font-size:15px">Total <span id="cart-total">$<%= @cart.total = @cart.total + @shipping_cost%></span></p>
+						</li>
 					</ul>
 					<div id= "cart-total-form" class="" >
 						<%= form_with  url: new_order_path, method: :get do |f| %>

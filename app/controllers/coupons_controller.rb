@@ -12,29 +12,28 @@ class CouponsController < ApplicationController
     def new
       @coupon = Coupon.new
     end
-r1e
+
     def check_coupon_code
+      @message = ""
       code = params[:coupon][:code]
       total = params[:coupon][:total]
       @shipping_cost = params[:coupon][:shipping_cost].to_f
-
-      if code.present? and total.present?
         @coupon = Coupon.where(code: code).first
-        @coupon_price = total.to_f * (@coupon.percent_off/100)
+        if @coupon.present?
+          @coupon_price = total.to_f * (@coupon.percent_off/100)
 
-        if @shipping_cost.present?
-          @total = ((total.to_f)-(@coupon_price)) + @shipping_cost
+          if @shipping_cost.present?
+            @total = ((total.to_f)-(@coupon_price)) + @shipping_cost
+          else
+            @total = ((total.to_f)-(@coupon_price))
+          end
+          @message = "Coupon Is Applied And Discount of #{@coupon.percent_off.to_i}%  Is Added!!"
         else
-          @total = ((total.to_f)-(@coupon_price))
+          @message = "You Have Applied An Invalid Coupon !!"
         end
         respond_to do |format|
           format.js {}
         end
-      else
-        respond_to do |format|
-          format.html { redirect_to cart_url(@cart), notice: "Invalid Coupon Code."}
-        end
-      end
     end
 
     def remove_coupon

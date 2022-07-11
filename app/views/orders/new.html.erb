@@ -3,18 +3,16 @@
         <div class="col-sm-6">
             <section id="cart_items" class="container">
             <div class="table-responsive cart_info">
-                <table class="table table-condensed"> 
+                <table class="table table-condensed">
                     <thead>
                         <tr class="cart_menu">
                             <td class="image">Item</td>
                             <td class="description">Description</td>
-                            <td class="price">Price</td>
                             <td class="quantity">Quantity</td>
-                            <td class="total">Total</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <% @cart.line_items.each do |item|%>  
+                        <% @cart.line_items.each do |item|%>
                             <tr>
                                 <td class="cart_price">
                                     <%= image_tag (item.product.product_images.first), width:"50",class:"img-responsive" if item.product.product_images.first  %>
@@ -23,23 +21,19 @@
                                     <p class="lead fw-normal mb-2"><%= item.product.name.capitalize %></p>
                                     <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
                                 </td>
-                                <td class="cart_price">
-                                    <p>$<%= item.product.price %></p>
-                                </td>
+
 
                                 <td class="cart_price">
                                     <p> <%= item.quantity %></p>
                                 </td>
-                                <td class="cart_total ">
-                                    <p class="cart_total_price">$<%= item.total%></p>
-                                </td>
+
                             </tr>
                         <% end %>
                     </tbody>
                 </table>
                     <p class="px-4 py-0 m-0"  >Your Cart Total: <span style="font-size:1.5rem;color:#874d2b;">$<%= @total %></span></p>
-                    <p class="px-4 py-0 m-0"  >Your Billing/Shipping Address:-</p> <span class="px-5 py-0 m-0" style="font-size:1.5rem;color:#874d2b;"><%= "#{current_user.addresses.find(@address_id).address_1.capitalize}, 
-                    #{current_user.addresses.find(@address_id).address_2},  #{current_user.addresses.find(@address_id).city}, 
+                    <p class="px-4 py-0 m-0"  >Your Billing/Shipping Address:-</p> <span class="px-5 py-0 m-0" style="font-size:1.5rem;color:#874d2b;"><%= "#{current_user.addresses.find(@address_id).address_1.capitalize},
+                    #{current_user.addresses.find(@address_id).address_2},  #{current_user.addresses.find(@address_id).city},
                     #{current_user.addresses.find(@address_id).state}, #{current_user.addresses.find(@address_id).zipcode}. "%></span>
                 </div>
             </section> <!--/#cart_items-->
@@ -47,7 +41,7 @@
         <div class="col-sm-4">
             <div class="auth-box card">
                 <div class="card-block">
-                    <%= render 'form', order: @order %>                      
+                    <%= render 'form', order: @order %>
                 </div>
             </div>
         </div>
