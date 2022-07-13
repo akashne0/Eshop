@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   post 'check_coupon_code', to: 'coupons#check_coupon_code'
   delete 'remove_coupon', to: 'coupons#remove_coupon'
   delete 'remove_from_wishlist', to: 'wishlists#remove_from_wishlist'
+  delete 'remove_product_from_order', to: 'orders#remove_product_from_order'
+  get 'get_deleted_products', to: 'orders#get_deleted_products'
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

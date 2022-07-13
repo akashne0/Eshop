@@ -34,6 +34,9 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 # gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
+#to hide data without deleting
+gem 'paranoia', git: 'git@github.com:rubysherpas/paranoia.git', branch: 'core'
+
 #payment gateway stripe.
 gem 'stripe'
 # gem 'paypal-checkout-sdk', '~> 1.0', '>= 1.0.4'

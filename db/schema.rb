@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_11_065827) do
+ActiveRecord::Schema.define(version: 2022_07_13_135325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,6 +182,9 @@ ActiveRecord::Schema.define(version: 2022_07_11_065827) do
     t.float "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.integer "status", default: 0
+    t.index ["deleted_at"], name: "index_order_details_on_deleted_at"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -193,7 +196,9 @@ ActiveRecord::Schema.define(version: 2022_07_11_065827) do
     t.bigint "coupon_id"
     t.bigint "user_id"
     t.string "pay_type"
+    t.datetime "deleted_at"
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
+    t.index ["deleted_at"], name: "index_orders_on_deleted_at"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

@@ -7,7 +7,7 @@ class OrderNotifierMailer < ApplicationMailer
     @order = Order.find(id)
     @email = @order.user.email
     @address = @order.address
-    @status = status
+    @status = @order.status
     mail( :to => @email,
       :subject => 'Thanks for choosing Eshop')
   end

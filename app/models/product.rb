@@ -1,8 +1,9 @@
 class Product < ApplicationRecord
+    # acts_as_paranoid
     has_many_attached :product_images, dependent: :delete_all
     has_and_belongs_to_many :categories, dependent: :delete_all
     has_many :line_items, dependent: :delete_all
-    has_many :orders, through: :line_items, dependent: :delete_all
+    # has_many :orders, through: :line_items, dependent: :delete_all
 
     before_destroy :ensure_not_referenced_by_any_line_item
 

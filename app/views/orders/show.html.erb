@@ -17,6 +17,7 @@
               <td class="price">Price</td>
               <td class="quantity">Quantity</td>
               <td class="total">Total</td>
+              <td class="total">Remove</td>
             </tr>
           </thead>
           <tbody>
@@ -44,6 +45,10 @@
                 <td class="cart_total py-5">
                   <p class="cart_total_price">$<%= item.amount%></p>
                 </td>
+  
+                <td class="cart_total px-5 py-5">
+                  <%= link_to '', remove_product_from_order_path(id: item.id), method: :delete, data: {confirm: 'You sure?'}, class:"fa fa-trash fa-lg text-danger" %>
+                </td>
               </tr>
             <% end %>							
           </tbody>         
@@ -58,26 +63,10 @@
       </div><br>
       <div class="heading">       
         <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %></span></h3>  
-      </div>    
+      </div><br>
+      <div class="heading">    
+        <%= link_to 'Cancel Entire Order', @order, method: :delete, data: {confirm: 'You sure?'}, class:"btn btn-outline-danger btn-lg btn-block" %>   
+      </div><br>   
     </div>
   </div>
 </section> <!--/#product_items-->
-
-
-	<%# <section id="do_action">
-		<div class="container">
-			<div class="row">
-        <div class="col-sm-7">
-          <div class="heading">       
-            <h3>Your Billing/Shipping address :</h3> 
-            <p><%= "  #{@address.address_2}, #{@address.address_2},"<br>  %>
-            <%# <%= " #{@address.state}, #{@address.city},#{@address.zipcode} "</p>   %>
-          <%# </div><br>
-          <div class="heading">       
-            <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %> <%#</span></h3>  
-          <%# </div>
-        </div>			
-			</div>
-		</div>
-	</section><!--/#do_action--> %> 
-

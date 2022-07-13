@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  # acts_as_paranoid
   enum status: {enable: 0, disabled: 1}
   has_many :addresses, dependent: :destroy
   has_many :orders, dependent: :destroy

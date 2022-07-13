@@ -37,7 +37,7 @@ class CouponsController < ApplicationController
     end
 
     def remove_coupon
-      byebug
+      # byebug
       @cart_total = @cart.total.to_f
       @shipping_cost = params[:shipping_cost].to_f
 

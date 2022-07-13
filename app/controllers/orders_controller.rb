@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:new, :create, :index, :show]
+  before_action :set_cart, only: [:new, :create, :index, :show, :get_deleted_products]
   before_action :set_order, only: %i[ show edit update destroy ]
 
   # GET /orders or /orders.json
@@ -88,6 +88,37 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def remove_product_from_order
+    @order_detail = OrderDetail.find(params[:id])
+    @order = @order_detail.order
+
+    @order_detail.destroy
+
+    @order_details.with_deleted.each do |order_detail|
+      order_detail.status = "cancelled"
+      order_detail.save
+    end
+
+    if @order.order_details.empty?
+      @order.destroy
+      respond_to do |format|
+        format.html { redirect_to @order, notice: "Your Entire Order is cancelled" }
+        format.json { head :no_content }
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @order, notice: "Your Order Is Cancelled!!." }
+      format.json { head :no_content }
+    end
+  end
+
+  def get_deleted_products
+    @products = current_user.orders.with_deleted.order(deleted_at: :desc)
+  end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

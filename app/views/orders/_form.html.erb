@@ -15,22 +15,22 @@
               </div>
           </div>
           <div class="row">
-            <%= f.hidden_field :total, :value => @total %>                                     
+            <%= f.hidden_field :total, :value => @total %>
           </div>
           <div class="row">
-            <%= f.hidden_field :address_id, :value => @address_id %>                                     
-          </div>
-                  
-          <div class="row px-5"> 
-              <%= f.submit "Stripe", class:"btn btn-outline-success btn-lg mb-3" %><br>     
-          </div>
-          
-          <div class="row px-5">                                 
-                <%#= f.submit "Paypal", class:"btn btn-outline-success btn-lg mb-3 "  %><br>
+            <%= f.hidden_field :address_id, :value => @address_id %>
           </div>
 
-          <div class="row px-5 mb-4">                                
-                <%= f.submit "Cash On Delivery", class:"btn btn-outline-success btn-lg mb-3"  %><br>  
+          <div class="row px-5">
+              <%= f.submit "Stripe", class:"btn btn-outline-success btn-lg btn-block mb-3" %><br>
+          </div>
+
+          <div class="row px-5">
+                <%#= f.submit "Payp al", class:"btn btn-outline-success btn-lg mb-3 "  %><br>
+          </div>
+
+          <div class="row px-5 mb-4">
+                <%= f.submit "Cash On Delivery", class:"btn btn-outline-success btn-block btn-lg mb-3"  %><br>
           </div>
       </div>
   </div>
