@@ -9,6 +9,7 @@ class Order < ApplicationRecord
     # has_many :line_items, dependent: :destroy
     # has_many :products, through: :line_items
     has_many :order_details, dependent: :destroy
+    has_many :refunds
 
     belongs_to :address, optional: true
     belongs_to :user, optional: true
@@ -17,7 +18,13 @@ class Order < ApplicationRecord
     validates :total, presence: true
     validates :pay_type, presence: true
 
+    # after_destroy :update_refund
     # after_update :send_order_notification
+
+    # def update_refund
+
+    # end
+
 
     def send_order_notification
         OrderNotifierMailer.order_update_notification(id).deliver

@@ -81,7 +81,9 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
+    @refund  = Refund.find_by(order_id: @order.id)
     @order.destroy
+
 
     respond_to do |format|
       format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
@@ -93,12 +95,7 @@ class OrdersController < ApplicationController
     @order_detail = OrderDetail.find(params[:id])
     @order = @order_detail.order
 
-    @order_detail.destroy
-
-    @order_details.with_deleted.each do |order_detail|
-      order_detail.status = "cancelled"
-      order_detail.save
-    end
+    redirect_to new_refund_path(order_detail: @order_detail, order: @order)
 
     if @order.order_details.empty?
       @order.destroy
@@ -107,11 +104,7 @@ class OrdersController < ApplicationController
         format.json { head :no_content }
       end
     end
-
-    respond_to do |format|
-      format.html { redirect_to @order, notice: "Your Order Is Cancelled!!." }
-      format.json { head :no_content }
-    end
+   
   end
 
   def get_deleted_products

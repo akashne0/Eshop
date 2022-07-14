@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_13_135325) do
+ActiveRecord::Schema.define(version: 2022_07_14_102009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -246,6 +246,19 @@ ActiveRecord::Schema.define(version: 2022_07_13_135325) do
     t.string "stripe_product_id"
   end
 
+  create_table "refunds", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "order_id", null: false
+    t.string "state"
+    t.string "stripe_refund_id"
+    t.boolean "is_partial_refund"
+    t.float "amount_refunded"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_refunds_on_order_id"
+    t.index ["user_id"], name: "index_refunds_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
@@ -286,5 +299,7 @@ ActiveRecord::Schema.define(version: 2022_07_13_135325) do
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_images", "products"
+  add_foreign_key "refunds", "orders"
+  add_foreign_key "refunds", "users"
   add_foreign_key "wishlists", "users"
 end

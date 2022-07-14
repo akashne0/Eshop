@@ -39,6 +39,7 @@ gem 'paranoia', git: 'git@github.com:rubysherpas/paranoia.git', branch: 'core'
 
 #payment gateway stripe.
 gem 'stripe'
+
 # gem 'paypal-checkout-sdk', '~> 1.0', '>= 1.0.4'
 gem 'paypal-sdk-rest', '~> 1.7', '>= 1.7.4'
 

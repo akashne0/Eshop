@@ -1,6 +1,7 @@
 class ChargesController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:new, :create]
+  rescue_from Stripe::CardError, with: :catch_exception
 
   def new
     @total = params[:total]
@@ -17,17 +18,22 @@ class ChargesController < ApplicationController
 
     # @order.pay_type = params
     Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
-    customer = Stripe::Customer.create(
-      email: params[:stripeEmail],
-      source: params[:stripeToken]
-    )
-    Stripe::PaymentIntent.create(
-      :customer => customer.id,
-      :amount => @amount,
-      :description => 'Rails Stripe transaction',
-      :currency => 'usd'
-    )
 
+    # byebug
+
+    payment_intent = Stripe::PaymentIntent.create(
+      :customer => current_user.stripe_customer_id,
+      :amount => @amount*100,
+      :description => current_user.email ,
+      :currency => 'usd',
+      :payment_method_data => { type: 'card',
+        card: {
+            token: params[:stripeToken]
+        },
+    })
+
+    byebug
+    
     @order.pay_type = params[:pay_type]
     @order.address_id = params[:address_id].to_i
     @order.total = params[:total].to_i
@@ -53,6 +59,9 @@ class ChargesController < ApplicationController
 
   private
 
+  def catch_exception(exception)
+    flash[:error] = exception.message
+  end
 
 
 end
