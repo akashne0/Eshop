@@ -33,11 +33,11 @@ class ChargesController < ApplicationController
     })
 
     byebug
-    
     @order.pay_type = params[:pay_type]
     @order.address_id = params[:address_id].to_i
     @order.total = params[:total].to_i
     @order.user_id = current_user.id
+    @order.stripe_payment_id = payment_intent.id
 
 
     puts @order.inspect
