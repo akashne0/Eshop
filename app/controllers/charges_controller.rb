@@ -20,19 +20,22 @@ class ChargesController < ApplicationController
     Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
 
     # byebug
-
     payment_intent = Stripe::PaymentIntent.create(
       :customer => current_user.stripe_customer_id,
       :amount => @amount*100,
       :description => current_user.email ,
-      :currency => 'usd',
+      :currency => 'inr',
+      # :payment_method_options => { card: {request_three_d_secure: :null}},
       :payment_method_data => { type: 'card',
-        card: {
-            token: params[:stripeToken]
-        },
-    })
+       card: {token: params[:stripeToken]},}
+    )
 
-    byebug
+    payment_confirm = Stripe::PaymentIntent.confirm(
+      payment_intent.id,
+      {payment_method: 'pm_card_visa'},
+    )
+
+    # byebug
     @order.pay_type = params[:pay_type]
     @order.address_id = params[:address_id].to_i
     @order.total = params[:total].to_i
@@ -66,37 +69,12 @@ class ChargesController < ApplicationController
 
 end
 
-# different method for stripe
-# def create
-#   @order = Order.new
-#   @order.add_line_items_from_cart(@cart)
-#   @total = params[:total]
-#   @amount = (@total*100).to_i
 
-#   Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
-#   customer = Stripe::Customer.create(
-#     email: params[:stripeEmail],
-#     source: params[:stripeToken]
-#   )
+# :payment_method_data => { type: 'card',
+#   card: {token: params[:stripeToken]},
 
-#   @session = Stripe::Checkout::Session.create({
-#     payment_method_types: [:card],
-#     line_items: [{
-#       customer: customer.id,
-#       amount: @amount,
-#       description: 'Rails Stripe transaction',
-#       currency: "usd"
-#     }],
-#     mode: 'payment',
-#     success_url: root_url,
-#     cancel_url: root_url,
-#   })
+# payment_intent = Stripe::PaymentIntent.create(:customer => current_user.stripe_customer_id,:amount => @amount*100,:description => current_user.email,:currency => 'inr',:payment_method_data => { type: 'card', card: {token: params[:stripeToken]}},)
+  # confirmation_method: 'manual',
+  # :confirm => true,
 
-#   respond_to do |format|
-#      @order.save
-#       Cart.destroy(session[:cart_id])
-#       session[:cart_id] = nil
-
-#       format.js {}
-#   end
-# end
+# payment_confirm = Stripe::PaymentIntent.confirm(payment_intent.id,{payment_method: 'pm_card_threeDSecureOptional'},)

@@ -81,9 +81,28 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
-    @refund  = Refund.find_by(order_id: @order.id)
-    @order.destroy
+    # @refund  = Refund.find_by(order_id: @order.id)
+    #stripe refund gateway
+    byebug
+    @order =Order.find(params[:id])
+    @amount = @order.order_details.pluck(:amount).inject(:+).to_i
 
+    Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
+    stripe_refund =  Stripe::Refund.create(
+      payment_intent: @order.stripe_payment_id ,
+      amount: @amount)
+
+    #refund model
+    @refund = Refund.new
+    @refund.user_id = current_user.id
+    @refund.order_id = @order.id.to_i
+    @refund.is_partial_refund = "false"
+    @refund.amount_refunded = stripe_refund.amount
+    @refund.stripe_refund_id = stripe_refund.id
+
+    @refund.save
+
+    @order.destroy
 
     respond_to do |format|
       format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
@@ -111,8 +130,6 @@ class OrdersController < ApplicationController
     @products = current_user.orders.with_deleted.order(deleted_at: :desc)
   end
 
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -124,3 +141,5 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:address_id, :total, :pay_type)
     end
 end
+
+# stripe_refund =  Stripe::Refund.create(payment_intent: @order.stripe_payment_id ,amount: @amount)
