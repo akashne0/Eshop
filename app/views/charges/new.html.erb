@@ -7,12 +7,12 @@
               <thead>
                 <tr>
                   <th>Item</th>
-                  <th>Description</th>       
+                  <th>Description</th>
                   <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>
-                <% @cart.line_items.each do |item|%>  
+                <% @cart.line_items.each do |item|%>
                   <tr>
                     <td >
                       <%= image_tag (item.product.product_images.first), width:"100",class:"img-responsive" if item.product.product_images.first  %>
@@ -30,10 +30,10 @@
             </table>
           </div>
         </div>
-        <div class="row justify-content-center mb-5">   
+        <div class="row justify-content-center mb-5">
           <div class="col col-sm-4">
-              <p class="px-4 py-0 m-0" >Your Billing/Shipping Address:-</p> <span style="font-size:1.5rem;color:#874d2b;"><%= "#{current_user.addresses.find(@address_id).address_1.capitalize}, 
-                  #{current_user.addresses.find(@address_id).address_2},  #{current_user.addresses.find(@address_id).city}, 
+              <p class="px-4 py-0 m-0" >Your Billing/Shipping Address:-</p> <span style="font-size:1.5rem;color:#874d2b;"><%= "#{current_user.addresses.find(@address_id).address_1.capitalize},
+                  #{current_user.addresses.find(@address_id).address_2},  #{current_user.addresses.find(@address_id).city},
                   #{current_user.addresses.find(@address_id).state}, #{current_user.addresses.find(@address_id).zipcode}. "%></span>
           </div>
           <div class="col col-sm-4">
@@ -41,6 +41,7 @@
               <input type="hidden" id="total" name="total" value="<%=@total%>" >
               <input type="hidden" id="address_id" name="address_id" value="<%=@address_id%>" >
               <input type="hidden" id="pay_type" name="pay_type" value="<%=@pay_type%>" >
+              <input type="hidden" id="coupon_id" name="coupon_id" value="<%=@coupon_id%>" >
               <article>
                 <% if flash[:error].present? %>
                 <div id="error_explanation">
@@ -51,7 +52,7 @@
                 <span>Amount: $<%= @total %></span>
                 </label>
               </article>
-          
+
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                 data-key="<%= Rails.application.credentials.dig(:stripe, :stripe_public_key) %>"
                 data-description="Enter Card Details"
@@ -60,7 +61,7 @@
                 data-locale="auto"></script>
               <% end %>
           </div>
-        </div>          
+        </div>
       </div>
     </div>
 </section>

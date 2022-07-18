@@ -31,6 +31,7 @@ class CouponsController < ApplicationController
         else
           @message = "You Have Applied An Invalid Coupon !!"
         end
+
         respond_to do |format|
           format.js {}
         end

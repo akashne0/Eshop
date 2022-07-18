@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+    # byebug
     if @cart.line_items.empty?
       redirect_to root_url, notice: "Your Cart Is Empty"
       return
@@ -25,6 +26,7 @@ class OrdersController < ApplicationController
       @order = Order.new
       @total = params[:total]
       @address_id = params[:address_id]
+      @coupon_id = params[:coupon_id]
     end
   end
 
@@ -36,13 +38,15 @@ class OrdersController < ApplicationController
   def create
     total = params["order"][:total]
     address_id = params["order"][:address_id]
+    coupon_id = params["order"][:coupon_id]
+
     # params["order"].delete(:total)
 
     @order = Order.new(order_params)
     # @order.add_line_items_from_cart(@cart)
-
+    # byebug
     if params[:commit] == 'Stripe'
-      redirect_to new_charge_path(:total => total, :pay_type => 'Stripe', :address_id => address_id)
+      redirect_to new_charge_path(:total => total, :pay_type => 'Stripe', :address_id => address_id, :coupon_id => coupon_id )
     elsif params[:commit] == 'Paypal'
       redirect_to new_paypal_path
     else params[:commit] == 'Cash On Delivery'
@@ -126,7 +130,7 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:address_id, :total, :pay_type)
+      params.require(:order).permit(:address_id, :total, :pay_type, :coupon_id)
     end
 end
 

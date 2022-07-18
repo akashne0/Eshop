@@ -7,13 +7,16 @@ class ChargesController < ApplicationController
     @total = params[:total]
     @pay_type = params[:pay_type]
     @address_id = params[:address_id]
+    @coupon_id = params[:coupon_id]
   end
 
   def create
+
     @order = Order.new
-    @pay_type = params[:pay_type]
-    @address_id = params[:address_id]
+    pay_type = params[:pay_type]
+    address_id = params[:address_id].to_i
     @total = params[:total]
+    coupon_id = params[:coupon_id]
     @amount = (@total*100).to_i
 
     # @order.pay_type = params
@@ -36,8 +39,9 @@ class ChargesController < ApplicationController
     )
 
     # byebug
-    @order.pay_type = params[:pay_type]
-    @order.address_id = params[:address_id].to_i
+    @order.pay_type = pay_type
+    @order.coupon_id = coupon_id
+    @order.address_id = address_id
     @order.total = params[:total].to_i
     @order.user_id = current_user.id
     @order.stripe_payment_id = payment_intent.id
