@@ -1,5 +1,5 @@
 class RefundsController < ApplicationController
- 
+
   def new
     @order = Order.find(params[:order])
     @order_detail = OrderDetail.find(params[:order_detail])
@@ -18,20 +18,17 @@ class RefundsController < ApplicationController
     @refund.is_partial_refund = "true"
     @refund.amount_refunded = @order_detail.amount
     @refund.stripe_refund_id = stripe_refund.id
-
     @refund.save
-    @order_detail.destroy
 
+    @order_detail.destroy
     @order.order_details.with_deleted.each do |order_detail|
       order_detail.status = "cancelled"
       order_detail.save
     end
-
     respond_to do |format|
       format.html { redirect_to @order, notice: "Your Product Is cancelled And Refund Initiated!!." }
       format.json { head :no_content }
     end
-
   end
 
 end

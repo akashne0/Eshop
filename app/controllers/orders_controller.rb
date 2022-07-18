@@ -83,14 +83,12 @@ class OrdersController < ApplicationController
   def destroy
     # @refund  = Refund.find_by(order_id: @order.id)
     #stripe refund gateway
-    byebug
+    # byebug
     @order =Order.find(params[:id])
     @amount = @order.order_details.pluck(:amount).inject(:+).to_i
 
     Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
-    stripe_refund =  Stripe::Refund.create(
-      payment_intent: @order.stripe_payment_id ,
-      amount: @amount)
+    stripe_refund =  Stripe::Refund.create(payment_intent: @order.stripe_payment_id)
 
     #refund model
     @refund = Refund.new
@@ -99,13 +97,11 @@ class OrdersController < ApplicationController
     @refund.is_partial_refund = "false"
     @refund.amount_refunded = stripe_refund.amount
     @refund.stripe_refund_id = stripe_refund.id
-
     @refund.save
 
     @order.destroy
-
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
+      format.html { redirect_to orders_url, notice: " Entire Order Was Cancelled Successfully. Refund Initiated Will Be Visible in 3-5 Working Day" }
       format.json { head :no_content }
     end
   end
@@ -115,15 +111,6 @@ class OrdersController < ApplicationController
     @order = @order_detail.order
 
     redirect_to new_refund_path(order_detail: @order_detail, order: @order)
-
-    if @order.order_details.empty?
-      @order.destroy
-      respond_to do |format|
-        format.html { redirect_to @order, notice: "Your Entire Order is cancelled" }
-        format.json { head :no_content }
-      end
-    end
-   
   end
 
   def get_deleted_products

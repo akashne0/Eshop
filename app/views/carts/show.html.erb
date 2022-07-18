@@ -87,9 +87,9 @@
 						</li>
 						<li>
 							<% if @shipping_cost == 0 %>
-							<p style="font-size:15px">Shipping Cost <span><del>$50</del></span></p>
+							<p style="font-size:15px">Shipping Cost <span>$50</span></p>
 							<% end %>
-							<p style="font-size:15px">Shipping Cost <span>$<%= @shipping_cost%></span></p>
+							<p style="font-size:15px">Shipping Cost <span>- $50</span></p>
 						</li>
 						<li>
 							<% if @shipping_cost == 0 %>
@@ -120,7 +120,7 @@
 							prompt: "Please Select Address",  id:"address-select", style:"font-size:13px"%>
 						</div><br>
 							<!--add address -->
-						<%= link_to "Add new address", new_address_path, class:"btn btn-outline-success btn-lg ms-3", style:"font-size:15px", remote: true %>
+						<%= link_to "Add new address", new_address_path, class:"btn btn-outline-success btn-lg ms-3 mx-4", style:"font-size:15px", remote: true %>
 					</div>
 				</div>
 			</div>

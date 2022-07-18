@@ -1,8 +1,8 @@
 <section class="container" >
   <div class="container h-100">
       <div class="text-center" >
-          <p><h1>Order Details</h1></p> 
-      </div>           
+          <p><h1>Order Details</h1></p>
+      </div>
   </div>
 </section>
 <section id="cart_items" class="container">
@@ -16,12 +16,14 @@
               <td class="description">Description</td>
               <td class="price">Price</td>
               <td class="quantity">Quantity</td>
-              <td class="total">Total</td>
-              <td class="total">Remove</td>
+              <td class="total text-center">Total</td>
+              <% unless @order.order_details.size == 1  %>
+                <td class="total text-center">Remove</td>
+              <% end %>
             </tr>
           </thead>
           <tbody>
-            <% @order.order_details.each do |item|%>  
+            <% @order.order_details.each do |item|%>
               <tr>
                 <td class="cart_price">
                   <%= image_tag (get_image_by_product_id(item)), width:"100",class:"img-responsive" if get_image_by_product_id(item)  %>
@@ -41,32 +43,33 @@
                 <td class="cart_price px-5 py-5">
                   <p> <%= item.quantity %></p>
                 </td>
-              
+
                 <td class="cart_total py-5">
                   <p class="cart_total_price">$<%= item.amount%></p>
                 </td>
-  
-                <td class="cart_total px-5 py-5">
-                  <%= link_to '', remove_product_from_order_path(id: item.id), method: :delete, data: {confirm: 'You sure?'}, class:"fa fa-trash fa-lg text-danger" %>
-                </td>
+                <% unless @order.order_details.size == 1 %>
+                  <td class="cart_total px-5 py-5">
+                    <%= link_to 'Cancel Product ?', remove_product_from_order_path(id: item.id), method: :delete, data: {confirm: 'You sure?'}, class:"btn btn-danger btn-lg" %>
+                  </td>
+                <% end %>
               </tr>
-            <% end %>							
-          </tbody>         
+            <% end %>
+          </tbody>
         </table>
       </div>
     </div>
     <div class="col col-sm-4">
-      <div class="heading"><br><br>       
-        <h3>Your Billing/Shipping address :</h3> 
-        <p><%= "  #{@address.address_2}, #{@address.address_2}," %><br> 
-        <%= " #{@address.state}, #{@address.city},#{@address.zipcode} " %></p>  
+      <div class="heading"><br><br>
+        <h3>Your Billing/Shipping address :</h3>
+        <p><%= "  #{@address.address_2}, #{@address.address_2}," %><br>
+        <%= " #{@address.state}, #{@address.city},#{@address.zipcode} " %></p>
       </div><br>
-      <div class="heading">       
-        <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %></span></h3>  
+      <div class="heading">
+        <h3>Your Order Status is: <span style="color:#de9a47;"><%= @order.status %></span></h3>
       </div><br>
-      <div class="heading">    
-        <%= link_to 'Cancel Entire Order', @order, method: :delete, data: {confirm: 'You sure?'}, class:"btn btn-outline-danger btn-lg btn-block" %>   
-      </div><br>   
+      <div class="heading">
+        <%= link_to 'Cancel Entire Order', @order, method: :delete, data: {confirm: 'You sure?'}, class:"btn btn-outline-danger btn-lg btn-block" %>
+      </div><br>
     </div>
   </div>
 </section> <!--/#product_items-->
