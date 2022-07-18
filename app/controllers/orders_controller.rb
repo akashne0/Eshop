@@ -114,7 +114,8 @@ class OrdersController < ApplicationController
   end
 
   def get_deleted_products
-    @products = current_user.orders.with_deleted.order(deleted_at: :desc)
+    products = current_user.orders.with_deleted.order(deleted_at: :desc)
+    @products = products.first(3)
   end
 
   private

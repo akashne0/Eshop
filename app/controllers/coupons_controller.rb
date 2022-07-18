@@ -1,6 +1,6 @@
 class CouponsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create]
+  before_action :set_cart, only: [:create, :remove_coupon, :check_coupon_code]
 
     def index
       @coupons = Coupon.all
@@ -16,16 +16,16 @@ class CouponsController < ApplicationController
     def check_coupon_code
       @message = ""
       code = params[:coupon][:code]
-      total = params[:coupon][:total]
+      @cart_total = params[:coupon][:total]
       @shipping_cost = params[:coupon][:shipping_cost].to_f
         @coupon = Coupon.where(code: code).first
         if @coupon.present?
-          @coupon_price = total.to_f * (@coupon.percent_off/100)
+          @coupon_price = @cart_total.to_f * (@coupon.percent_off/100)
 
           if @shipping_cost.present?
-            @total = ((total.to_f)-(@coupon_price)) + @shipping_cost
+            @total = ((@cart_total.to_f)-(@coupon_price)) + @shipping_cost
           else
-            @total = ((total.to_f)-(@coupon_price))
+            @total = ((@cart_total.to_f)-(@coupon_price))
           end
           @message = "Coupon Is Applied And Discount of #{@coupon.percent_off.to_i}%  Is Added!!"
         else
@@ -38,10 +38,13 @@ class CouponsController < ApplicationController
 
     def remove_coupon
       # byebug
-      @cart_total = @cart.total.to_f
+      @cart = params[:total].to_f
       @shipping_cost = params[:shipping_cost].to_f
+      @coupon = Coupon.new
 
-      @total = @cart_total + @shipping_cost
+      @total = @cart + @shipping_cost
+
+      @message = "You Have Removed The Coupon.!!"
       respond_to do |format|
         format.js {}
       end

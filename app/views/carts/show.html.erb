@@ -89,17 +89,17 @@
 							<% if @shipping_cost == 0 %>
 							<p style="font-size:15px">Shipping Cost <span>$50</span></p>
 							<% end %>
-							<p style="font-size:15px">Shipping Cost <span>- $50</span></p>
+							<p style="font-size:15px">Shipping Discount <span>- $50</span></p>
 						</li>
 						<li>
 							<% if @shipping_cost == 0 %>
-							<p style="font-size:15px">Total <span><del>$<%= @cart.total = @cart.total + @shipping_cost + 50 %></del></span></p>
+							<p style="font-size:15px">Total <span>$<%= @cart.total = @cart.total + @shipping_cost + 50 %></span></p>
 							<% end %>
 							<div id="coupon-discount">
 								<!-- This is for code -->
 							</div>
 
-							<p style="font-size:15px">Total <span id="cart-total">$<%= @cart.total = @cart.total + @shipping_cost%></span></p>
+							<p style="font-size:15px">Discounted Total <span id="cart-total">$<%= @cart.total = @cart.total + @shipping_cost%></span></p>
 						</li>
 					</ul>
 					<div id= "cart-total-form" class="" >

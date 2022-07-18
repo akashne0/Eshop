@@ -1,7 +1,7 @@
 $("#coupon-notice").html("<p class='alert alert-info text-center' role='alert'><%= @message %><button type='button' class='close' data-dismiss='alert'>&times;</button></p>");
 <% if @coupon.present? %>
-  $("#coupon-discount").html("<p style='font-size:15px'>Coupon Discount <span><del>$<%= @coupon_price%></del></span></p>");
-  $("#cart-total").text("<%= @total %>");
+  $("#coupon-discount").html("<p style='font-size:15px'>Shipping Discount <span>- $50</span></p><p style='font-size:15px'>Coupon Discount <span>- $<%= @coupon_price%></span></p>");
+  $("#cart-total").text("$<%= @total %>");
   $("#total").val("<%= @total %>");
 <% end %>
-// $("#coupon-buttons").html('<%= escape_javascript render "coupons/check_coupon_code"%>');
+$("#coupon-buttons").html('<%= escape_javascript render "coupons/check_coupon_code"%>');
