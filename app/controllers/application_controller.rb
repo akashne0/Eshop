@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       total = line_item.total - (line_item.total * coupon_off)
       order_detail = OrderDetail.create(order_id: order.id, product_id: line_item.product.id, quantity: line_item.quantity, amount: total)
     end
-    byebug
+    # byebug
   end
 
   protected
