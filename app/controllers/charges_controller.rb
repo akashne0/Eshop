@@ -40,7 +40,9 @@ class ChargesController < ApplicationController
 
     # byebug
     @order.pay_type = pay_type
-    @order.coupon_id = coupon_id
+    unless coupon_id == "0"
+      @order.coupon_id = coupon_id
+    end
     @order.address_id = address_id
     @order.total = params[:total].to_i
     @order.user_id = current_user.id

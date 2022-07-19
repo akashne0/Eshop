@@ -1,5 +1,5 @@
 $("#coupon-notice").html("<p class='alert alert-info text-center' role='alert'><%= @message %><button type='button' class='close' data-dismiss='alert'>&times;</button></p>");
-$("#cart-total").text("<%= @total %>");
+$("#cart-total").text("$<%= @total %>");
 $("#total").val("<%= @total %>");
 $("#new-coupon").html('<%= escape_javascript render "coupons/remove_coupon" %>');
 $("#coupon-discount").html("");

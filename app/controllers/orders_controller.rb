@@ -53,7 +53,9 @@ class OrdersController < ApplicationController
       #to add paytype to order
       @order.pay_type = params[:commit]
       @order.user_id = current_user.id
-
+      if @order.coupon_id == 0
+        @order.coupon_id = nil
+      end
       respond_to do |format|
         if @order.save
           # byebug

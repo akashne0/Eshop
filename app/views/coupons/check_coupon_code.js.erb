@@ -4,5 +4,5 @@ $("#coupon-notice").html("<p class='alert alert-info text-center' role='alert'><
   $("#cart-total").text("$<%= @total %>");
   $("#total").val("<%= @total %>");
   $("#coupon_id").val("<%= @coupon.id %>");
+  $("#coupon-buttons").html('<%= escape_javascript render "coupons/check_coupon_code"%>');
 <% end %>
-$("#coupon-buttons").html('<%= escape_javascript render "coupons/check_coupon_code"%>');

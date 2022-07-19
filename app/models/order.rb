@@ -21,10 +21,6 @@ class Order < ApplicationRecord
     # after_destroy :update_refund
     # after_update :send_order_notification
 
-    # def update_refund
-
-    # end
-
 
     def send_order_notification
         OrderNotifierMailer.order_update_notification(id).deliver

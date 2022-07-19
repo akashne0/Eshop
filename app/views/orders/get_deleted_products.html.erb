@@ -1,12 +1,12 @@
-<%#= link_to 'Show', order %> 
-<%#= link_to 'Edit', edit_order_path(order) %>  
+<%#= link_to 'Show', order %>
+<%#= link_to 'Edit', edit_order_path(order) %>
 <%#= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <section class="container" >
   <div class="container h-100">
       <div class="text-center" >
-          <p><h1>Your Cancelled Orders</h1></p> 
-      </div>           
+          <p><h1>Your Cancelled Orders</h1></p>
+      </div>
   </div>
 </section>
 
@@ -17,14 +17,15 @@
 				<tr class="cart_menu">
 					<td class="image">Item</td>
 					<td class="description">Description</td>
-					<td class="price">Price</td>
+          <td class="description">Actual Price</td>
+          <td class="price">Discounted Price</td>
 					<td class="quantity">Quantity</td>
 					<td class="total">Total</td>
 				</tr>
 			</thead>
 			<tbody>
-				<% @products.each do |product|%>  
-					<% product.order_details.with_deleted.each do |item|%>  
+				<% @products.each do |product|%>
+					<% product.order_details.with_deleted.each do |item|%>
 						<tr>
 							<td class="cart_price">
 							<%= image_tag (get_image_by_product_id(item)), width:"100",class:"img-responsive" if get_image_by_product_id(item)  %>
@@ -36,6 +37,10 @@
 							<p><span class="text-muted">desc.:</span><%= get_description_by_product_id(item)%></p>
 							<%# <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
 							</td>
+              <td class="cart_price py-5">
+                <p >$<%= get_amount_by_product_id(item) %></p>
+                <%# <p>$<%= item.product.price</p>  %>
+              </td>
 							<td class="cart_price py-5">
 							<p>$<%= item.amount/item.quantity %></p>
 							<%# <p>$<%= item.product.price</p>  %>
@@ -44,13 +49,13 @@
 							<td class="cart_price px-5 py-5">
 							<p> <%= item.quantity %></p>
 							</td>
-						
+
 							<td class="cart_total py-5">
 							<p class="cart_total_price">$<%= item.amount%></p>
 							</td>
-			
+
 						</tr>
-					<% end %>	
+					<% end %>
 				<% end %>
 			</tbody>
 		</table>

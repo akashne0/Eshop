@@ -8,11 +8,17 @@ class ApplicationController < ActionController::Base
 
   def add_from_cart_to_order_details(cart, order)
     # byebug
-    coupon = Coupon.find(order.coupon_id).percent_off
-    coupon_off = coupon/100
-    cart.line_items.each do |line_item|
-      total = line_item.total - (line_item.total * coupon_off)
-      order_detail = OrderDetail.create(order_id: order.id, product_id: line_item.product.id, quantity: line_item.quantity, amount: total)
+    if order.coupon_id.present?
+      coupon = Coupon.find(order.coupon_id).percent_off
+      coupon_off = coupon/100
+      cart.line_items.each do |line_item|
+        total = line_item.total - (line_item.total * coupon_off)
+        order_detail = OrderDetail.create(order_id: order.id, product_id: line_item.product.id, quantity: line_item.quantity, amount: total)
+      end
+    else
+      cart.line_items.each do |line_item|
+        order_detail = OrderDetail.create(order_id: order.id, product_id: line_item.product.id, quantity: line_item.quantity, amount: line_item.total)
+      end
     end
     # byebug
   end
