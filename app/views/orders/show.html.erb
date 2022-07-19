@@ -14,7 +14,8 @@
             <tr class="cart_menu">
               <td class="image">Item</td>
               <td class="description">Description</td>
-              <td class="price">Price</td>
+              <td class="description text-center">Actual Price</td>
+              <td class="price text-center">Discounted Price</td>
               <td class="quantity">Quantity</td>
               <td class="total text-center">Total</td>
               <% unless @order.order_details.size == 1  %>
@@ -36,7 +37,11 @@
                   <%# <p><span class="text-muted">desc.:</span><%= item.product.short_description.capitalize%></p>
                 </td>
                 <td class="cart_price py-5">
-                  <p>$<%= item.amount/item.quantity %></p>
+                  <p class="text-center">$<%= get_amount_by_product_id(item) %></p>
+                  <%# <p>$<%= item.product.price</p>  %>
+                </td>
+                <td class="cart_price py-5">
+                  <p class="text-center">$<%= item.amount/item.quantity %></p>
                   <%# <p>$<%= item.product.price</p>  %>
                 </td>
 

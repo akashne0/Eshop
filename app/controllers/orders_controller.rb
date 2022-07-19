@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = current_user.orders
+    @orders = current_user.orders.order(id: :desc)
   end
 
   # GET /orders/1 or /orders/1.json
@@ -56,6 +56,7 @@ class OrdersController < ApplicationController
 
       respond_to do |format|
         if @order.save
+          # byebug
           add_from_cart_to_order_details(@cart, @order)
           Cart.destroy(session[:cart_id])
           session[:cart_id] = nil
@@ -90,17 +91,22 @@ class OrdersController < ApplicationController
     # byebug
     @order =Order.find(params[:id])
     @amount = @order.order_details.pluck(:amount).inject(:+).to_i
-
-    Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
-    stripe_refund =  Stripe::Refund.create(payment_intent: @order.stripe_payment_id)
-
+    if @order.pay_type == 'Stripe'
+      Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
+      stripe_refund =  Stripe::Refund.create(payment_intent: @order.stripe_payment_id)
+    end
     #refund model
     @refund = Refund.new
     @refund.user_id = current_user.id
     @refund.order_id = @order.id.to_i
     @refund.is_partial_refund = "false"
-    @refund.amount_refunded = stripe_refund.amount
-    @refund.stripe_refund_id = stripe_refund.id
+    # @refund.amount_refunded = stripe_refund.amount
+    if @order.pay_type == 'Stripe'
+      @refund.amount_refunded = stripe_refund.amount
+      @refund.stripe_refund_id = stripe_refund.id
+    else
+      @refund.amount_refunded = @amount
+    end
     @refund.save
 
     @order.destroy

@@ -1,15 +1,18 @@
 class RefundsController < ApplicationController
 
   def new
+
     @order = Order.find(params[:order])
     @order_detail = OrderDetail.find(params[:order_detail])
     @amount = (@order_detail.amount*100).to_i
 
     #stripe refund gateway
-    Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
-    stripe_refund =  Stripe::Refund.create(
-      payment_intent: @order.stripe_payment_id ,
-      amount: @amount)
+    if @order.pay_type == "Stripe"
+      Stripe.api_key = Rails.application.credentials.dig(:stripe, :stripe_secret_key)
+      stripe_refund =  Stripe::Refund.create(
+        payment_intent: @order.stripe_payment_id ,
+        amount: @amount)
+    end
 
     #refund model
     @refund = Refund.new
@@ -17,7 +20,9 @@ class RefundsController < ApplicationController
     @refund.order_id = @order.id.to_i
     @refund.is_partial_refund = "true"
     @refund.amount_refunded = @order_detail.amount
-    @refund.stripe_refund_id = stripe_refund.id
+    if @order.pay_type == "Stripe"
+      @refund.stripe_refund_id = stripe_refund.id
+    end
     @refund.save
 
     @order_detail.destroy
